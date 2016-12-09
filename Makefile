@@ -15,17 +15,19 @@ OS:=$(shell uname)
 CPU:=$(shell uname -m)
 ifeq ($(OS),Linux)
 	LIBSMLX = -lmlx -lXext -lX11
-	LIBMLXPATH = /usr/X11/lib
+	LIBMLXPATH = ./minilibx
+	INCMINI = ./minilibx
 else
 	LIBSMLX = -lmlx -framework OpenGL -framework AppKit
 	LIBMLXPATH = .
+	INCMINI = .
 endif
 all : $(NAME)
 
 $(NAME) : $(LIST_SRC)
 	make -C $(LIBFTPATH)
-	gcc $(CFLAG) -I $(INC) -I $(INC_LIBFTPATH) -L$(LIBFTPATH)\
-		-L$(LIBMLXPATH) -lft $(LIBSMLX) $(LIST_SRC)  -o $(NAME)
+	gcc $(CFLAG) $(LIST_SRC) -I $(INC) -I $(INCMINI) -I $(INC_LIBFTPATH) -L$(LIBFTPATH)\
+		-L$(LIBMLXPATH) -lft $(LIBSMLX) -o $(NAME)
 
 clean :
 	make clean -C $(LIBFTPATH)

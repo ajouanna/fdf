@@ -83,4 +83,5 @@ int		main()
 	mlx_key_hook(context.win, handle_key, &context);
 	mlx_mouse_hook(context.win, handle_mouse, &context);
 	mlx_loop(context.mlx);
+	return (0);
 }
