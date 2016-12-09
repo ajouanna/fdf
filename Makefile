@@ -17,15 +17,15 @@ ifeq ($(OS),Linux)
 	LIBSMLX = -lmlx -lXext -lX11
 	LIBMLXPATH = /usr/X11/lib
 else
-	LIBSMLX = -lmlx -lframework OpenGL -lframework AppKit
-	LIBMLXPATH = /usr/X11/lib
+	LIBSMLX = -lmlx -framework OpenGL -framework AppKit
+	LIBMLXPATH = .
 endif
 all : $(NAME)
 
 $(NAME) : $(LIST_SRC)
 	make -C $(LIBFTPATH)
-	gcc $(CFLAG) -I $(INC) -I $(INC_LIBFTPATH) $(LIST_SRC) -L$(LIBFTPATH)\
-		-L$(LIBMLXPATH) -lft $(LIBSMLX) -o $(NAME)
+	gcc $(CFLAG) -I $(INC) -I $(INC_LIBFTPATH) -L$(LIBFTPATH)\
+		-L$(LIBMLXPATH) -lft $(LIBSMLX) $(LIST_SRC)  -o $(NAME)
 
 clean :
 	make clean -C $(LIBFTPATH)
