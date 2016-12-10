@@ -12,11 +12,10 @@ LIBFT = libft.a
 LIBFTPATH = ./libft/
 INC_LIBFTPATH  = $(LIBFTPATH)includes
 OS:=$(shell uname)
-CPU:=$(shell uname -m)
 ifeq ($(OS),Linux)
 	LIBSMLX = -lmlx -lXext -lX11
-	LIBMLXPATH = ./minilibx
-	INCMINI = ./minilibx
+	LIBMLXPATH = ../minilibx
+	INCMINI = ../minilibx
 else
 	LIBSMLX = -lmlx -framework OpenGL -framework AppKit
 	LIBMLXPATH = .

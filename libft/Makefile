@@ -2,7 +2,8 @@ NAME = libft.a
 SRC = .
 INC = ./includes
 OBJ = .
-
+CFLAGS = -Wall -Wextra -Werror
+CC = gcc
 LIST_SRC = \
 		$(SRC)/ft_memset.c \
 		$(SRC)/ft_bzero.c \
@@ -70,8 +71,11 @@ LIST_OBJ = $(LIST_SRC:$(SRC)/%.c=$(OBJ)/%.o)
 
 all : $(NAME)
 
+#%.o: %.c
+#	$(CC) -c $< -o $@ $(CFLAGS)
+
 $(NAME) : $(LIST_SRC)
-	gcc -Wall -Wextra -Werror -I $(INC) $(LIST_SRC) -c
+	$(CC) $(CFLAGS) -I $(INC) $(LIST_SRC) -c
 	ar rc libft.a $(LIST_OBJ)
 	ranlib libft.a
 
