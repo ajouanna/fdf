@@ -18,11 +18,12 @@
 
 int		expose_hook(void *param)
 {
-	t_context *c;
+	t_context *context;
 
-	c = (t_context *)param;
-	mlx_clear_window(c->mlx, c->win);
-	display_commands(c);
+	context = (t_context *)param;
+	mlx_clear_window(context->mlx, context->win);
+	mlx_put_image_to_window(context->mlx,context->win, context->image, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	display_commands(context);
 	return (1);
 }
 
@@ -60,6 +61,7 @@ int		handle_mouse(int button, int x, int y, void *param)
 
 /*
 ** initialise la librairie mlx et lance les traitements
+** NB: par defaut, l'affichage est de type PARALLEL
 */
 
 int		setup_mlx(t_context *context)
@@ -69,8 +71,12 @@ int		setup_mlx(t_context *context)
 		ft_putstr("mlx_init error\n");
 		return (0);
 	}
+	context->proj_type = PARALLEL;
 	context->win = mlx_new_window(context->mlx, DEFAULT_WIDTH, DEFAULT_HEIGHT,
 			"Antoine");
+	context->image = mlx_new_image(context->mlx, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	process_image(context);
+	mlx_put_image_to_window(context->mlx,context->win, context->image, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	mlx_key_hook(context->win, handle_key, context);
 	mlx_mouse_hook(context->win, handle_mouse, context);
 	mlx_expose_hook(context->win, expose_hook, context);

@@ -20,6 +20,12 @@
 # define DEFAULT_WIDTH  800
 # define DEFAULT_HEIGHT 400
 
+typedef		enum
+{
+	PARALLEL,
+	ISOMETRIC
+}		e_projection_type;
+
 /*
 ** cette structure stocke l'environnement complet necessaire aux
 ** traitements
@@ -27,15 +33,18 @@
 
 typedef struct	s_context
 {
-	void	*mlx;
-	void	*win;
-	int		**map;
+	void		*mlx;
+	void		*win;
+	void		*image;
+	int			**map;
 	int		map_color;
+	e_projection_type	proj_type;
 }				t_context;
 
 int				setup_mlx(t_context *context);
 int				read_file(char *filename, t_context *context);
 void			draw_square(t_context *c, int x, int y);
 void			display_commands(t_context *context);
+void			process_image(t_context *context);
 
 #endif
