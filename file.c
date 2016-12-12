@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:06:48 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/12 15:18:16 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/12 17:27:22 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,44 @@ static int	insert_line(t_context *context, char *line)
 }
 
 /*
-** lecture du fichier contenant la carte
+** verifier que la map respecte les caracteristiques attendues :
+** toutes les lignes ont la meme largeur
+*/
+
+int			check_map(t_context *context)
+{
+	int i;
+	int j;
+	int first_pass;
+	int size_line;
+
+	size_line = 0;
+	first_pass = 1;
+	i = -1;
+	while (context->map[++i])
+	{
+		j = 0;
+		while (context->map[i][j] >= 0)
+			j++;
+		if (first_pass)
+		{
+			first_pass = 0;
+			size_line = j;
+		}
+		else
+		{
+			if (size_line != j)
+			{
+				ft_putstr("File  error: all lines should have same # points\n");
+				return (0);
+			}
+		}
+	}
+	return (1);
+}
+
+/*
+** lecture du fichier contenant la carte:w
 */
 
 int			read_file(char *filename, t_context *context)
@@ -115,5 +152,6 @@ int			read_file(char *filename, t_context *context)
 		}
 	}
 	close(fd);
-	return (1);
+	context->map_color = DEFAULT_COLOR;
+	return (check_map(context));
 }
