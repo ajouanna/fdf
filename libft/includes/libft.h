@@ -6,7 +6,7 @@
 /*   By: ajouanna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 16:43:08 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/07 13:41:49 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/12 15:14:14 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,6 @@ void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int				ft_isspace(int c);
 char			*ft_strnjoin(char const *s1, char const *s2, size_t size);
-int			get_next_line(const int fd, char **line);
+int				get_next_line(const int fd, char **line);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:08:49 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/09 17:41:00 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/12 15:20:45 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ int		handle_mouse(int button, int x, int y, void *param)
 ** affichele contenu d'un int **
 */
 
-void print_map(int **map)
+void	print_map(int **map)
 {
 	int i;
 	int j;
-	
+
 	ft_putstr("print_map\n");
 	i = 0;
 	while (map[i])

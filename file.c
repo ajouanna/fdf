@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:06:48 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/09 17:08:42 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/12 15:18:16 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
-
 
 /*
 ** agrandit un tableau d'int termine par un -1 et ajoute la
@@ -49,7 +48,7 @@ static int	realloc_tab(t_context *context, int *int_tab)
 ** transforme un char ** en int * dont la derniere valeur est -1
 */
 
-int	*convert_to_tabint( char **tab)
+static int	*convert_to_tabint(char **tab)
 {
 	int i;
 	int *res;
@@ -69,24 +68,24 @@ int	*convert_to_tabint( char **tab)
 		i++;
 	}
 	res[i] = -1;
-	return (res);	
+	return (res);
 }
 
 /*
 ** remplissage de la carte ligne par ligne
 */
 
-int	insert_line(t_context *context, char *line)
+static int	insert_line(t_context *context, char *line)
 {
 	char	**tab;
-	int	*tab_int;
-	int	res;
+	int		*tab_int;
+	int		res;
 
 	if ((tab = ft_strsplit(line, ' ')) == NULL)
 		return (0);
 	if ((tab_int = convert_to_tabint(tab)) == NULL)
 		return (0);
-	res = realloc_tab(context, tab_int); 
+	res = realloc_tab(context, tab_int);
 	free(tab);
 	return (res);
 }
@@ -95,10 +94,10 @@ int	insert_line(t_context *context, char *line)
 ** lecture du fichier contenant la carte
 */
 
-int	read_file(char *filename, t_context *context)
+int			read_file(char *filename, t_context *context)
 {
-	int fd;
-	char *line;
+	int		fd;
+	char	*line;
 
 	line = NULL;
 	errno = 0;
@@ -108,11 +107,11 @@ int	read_file(char *filename, t_context *context)
 		ft_putchar('\n');
 		return (0);
 	}
-	while (get_next_line(fd,&line) == 1) 
+	while (get_next_line(fd, &line) == 1)
 	{
 		if (insert_line(context, line) == 0)
 		{
-			break;
+			break ;
 		}
 	}
 	close(fd);
