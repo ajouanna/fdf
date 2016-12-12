@@ -13,10 +13,20 @@
 #ifndef FDF_H
 # define FDF_H
 
+#include "libft.h"
+
+/*
+** cette structure stocke l'environnement complet necessaire aux
+** traitements
+*/
+
 typedef struct	s_context
 {
-	void *mlx;
-	void *win;
+	void	*mlx;
+	void	*win;
+	int	**map;
+	int	map_color;
 }				t_context;
 
+int	read_file(char *filename, t_context *context);
 #endif

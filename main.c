@@ -71,17 +71,59 @@ int		handle_mouse(int button, int x, int y, void *param)
 }
 
 /*
+** affichele contenu d'un int **
+*/
+
+void print_map(int **map)
+{
+	int i;
+	int j;
+	
+	ft_putstr("print_map\n");
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j] >= 0)
+		{
+			ft_putnbr(map[i][j]);
+			ft_putchar(' ');
+			j++;
+		}
+		ft_putchar('\n');
+		i++;
+	}
+}
+
+/*
 ** enchainement des traitements
 */
 
-int		main()
+int		main(int argc, char **argv)
 {
-	t_context context;
+	t_context	context;
 
-	context.mlx = mlx_init();
-	context.win = mlx_new_window(context.mlx, 400, 400, "Antoine");
-	mlx_key_hook(context.win, handle_key, &context);
-	mlx_mouse_hook(context.win, handle_mouse, &context);
-	mlx_loop(context.mlx);
+	if (argc != 2)
+	{
+		ft_putstr("Usage: fdf map_file\n");
+		return (0);
+	}
+	if ((context.map = malloc(sizeof(int *))) == NULL)
+	{
+		ft_putstr("malloc error\n");
+		return (0);
+	}
+	context.map[0] = 0;
+	if (read_file(argv[1], &context))
+	{
+		// debug
+		print_map(context.map);
+
+		context.mlx = mlx_init();
+		context.win = mlx_new_window(context.mlx, 400, 400, "Antoine");
+		mlx_key_hook(context.win, handle_key, &context);
+		mlx_mouse_hook(context.win, handle_mouse, &context);
+		mlx_loop(context.mlx);
+	}
 	return (0);
 }

@@ -2,7 +2,7 @@ NAME = fdf
 SRC = .
 INC = .
 OBJ = .
-LIST_SRC = $(SRC)/main.c 
+LIST_SRC = $(SRC)/main.c $(SRC)/file.c
 
 LIST_OBJ = $(LIST_SRC:$(SRC)/%.c=$(OBJ)/%.o)
 	#CFLAG = -Wall -Wextra -Werror
