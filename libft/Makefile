@@ -64,7 +64,8 @@ LIST_SRC = \
 		$(SRC)/ft_lstiter.c \
 		$(SRC)/ft_lstmap.c \
 		$(SRC)/ft_strnjoin.c \
-		$(SRC)/ft_isspace.c
+		$(SRC)/ft_isspace.c \
+		$(SRC)/get_next_line.c
 
 
 LIST_OBJ = $(LIST_SRC:$(SRC)/%.c=$(OBJ)/%.o)
