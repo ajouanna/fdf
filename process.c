@@ -21,5 +21,25 @@
 
 void		process_image(t_context *context)
 {
-	(void)context;
+	if (context->proj_type == FLAT)
+		flat_transform(context);
+	else if (context->proj_type == CONICAL)
+		conical_transform(context);
+	else if (context->proj_type == PARALLEL)
+		parallel_transform(context);
+	else if (context->proj_type == ISOMETRIC)
+		isometric_transform(context);
+}
+
+/*
+** efface l'image, relance le traitement et reaffiche les commandes
+*/
+
+void		reprocess_image(t_context *context)
+{
+	mlx_clear_window(context->mlx, context->win);
+	process_image(context);
+	mlx_put_image_to_window(context->mlx,context->win, context->img,
+	        context->width, context->height);
+	display_commands(context);
 }

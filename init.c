@@ -22,23 +22,48 @@ int		expose_hook(void *param)
 
 	context = (t_context *)param;
 	mlx_clear_window(context->mlx, context->win);
-	mlx_put_image_to_window(context->mlx,context->win, context->image, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	mlx_put_image_to_window(context->mlx,context->win, context->img, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	display_commands(context);
 	return (1);
 }
 
 /*
 ** traitement des evenements clavier
+** FIX THIS : mettre les codes de touche mac
 */
 
 int		handle_key(int keycode, void *param)
 {
+	t_context *context = param;
 	ft_putstr("key pressed : ");
 	ft_putnbr(keycode);
 	ft_putchar('\n');
-	(void)param;
-	if (keycode == 53)
+	if ((keycode == 53) || (keycode == 65307))
 		exit(0);
+	if ((keycode == 38) || (keycode == 38))
+	{
+		context->proj_type = PARALLEL;
+		reprocess_image(context);
+		return (1);
+	}
+	if ((keycode == 233) || (keycode == 233))
+	{
+		context->proj_type = ISOMETRIC;
+		reprocess_image(context);
+		return (1);
+	}
+	if ((keycode == 34) || (keycode == 34))
+	{
+		context->proj_type = CONICAL;
+		reprocess_image(context);
+		return (1);
+	}
+	if ((keycode == 39) || (keycode == 39))
+	{
+		context->proj_type = FLAT;
+		reprocess_image(context);
+		return (1);
+	}
 	return (1);
 }
 
@@ -62,6 +87,7 @@ int		handle_mouse(int button, int x, int y, void *param)
 /*
 ** initialise la librairie mlx et lance les traitements
 ** NB: par defaut, l'affichage est de type PARALLEL
+** TBD : calculer la taille de la fenêtre en fonction du fichier de donnees
 */
 
 int		setup_mlx(t_context *context)
@@ -71,12 +97,17 @@ int		setup_mlx(t_context *context)
 		ft_putstr("mlx_init error\n");
 		return (0);
 	}
-	context->proj_type = PARALLEL;
-	context->win = mlx_new_window(context->mlx, DEFAULT_WIDTH, DEFAULT_HEIGHT,
+	context->proj_type = FLAT;
+	context->width = DEFAULT_WIDTH;
+	context->height = DEFAULT_HEIGHT;
+	context->win = mlx_new_window(context->mlx, context->width, context->height,
 			"Antoine");
-	context->image = mlx_new_image(context->mlx, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	context->img = mlx_new_image(context->mlx, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	context->img_data = mlx_get_data_addr(context->img, &(context->img_bpp),
+		&(context->img_size_line), &(context->img_endian));
 	process_image(context);
-	mlx_put_image_to_window(context->mlx,context->win, context->image, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	mlx_put_image_to_window(context->mlx,context->win, context->img,
+		context->width, context->height);
 	mlx_key_hook(context->win, handle_key, context);
 	mlx_mouse_hook(context->win, handle_mouse, context);
 	mlx_expose_hook(context->win, expose_hook, context);
