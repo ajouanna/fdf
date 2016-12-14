@@ -152,6 +152,5 @@ int			read_file(char *filename, t_context *context)
 		}
 	}
 	close(fd);
-	context->map_color = DEFAULT_COLOR;
 	return (check_map(context));
 }

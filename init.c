@@ -22,7 +22,7 @@ int		expose_hook(void *param)
 
 	context = (t_context *)param;
 	mlx_clear_window(context->mlx, context->win);
-	mlx_put_image_to_window(context->mlx,context->win, context->img, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	mlx_put_image_to_window(context->mlx,context->win, context->img, context->width, context->height);
 	display_commands(context);
 	return (1);
 }
@@ -100,9 +100,10 @@ int		setup_mlx(t_context *context)
 	context->proj_type = FLAT;
 	context->width = DEFAULT_WIDTH;
 	context->height = DEFAULT_HEIGHT;
+	context->map_color = DEFAULT_COLOR;
 	context->win = mlx_new_window(context->mlx, context->width, context->height,
 			"Antoine");
-	context->img = mlx_new_image(context->mlx, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	context->img = mlx_new_image(context->mlx, context->width, context->height);
 	context->img_data = mlx_get_data_addr(context->img, &(context->img_bpp),
 		&(context->img_size_line), &(context->img_endian));
 	process_image(context);

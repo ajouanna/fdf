@@ -17,8 +17,8 @@
 # include "libft.h"
 
 # define DEFAULT_COLOR 0x00FF00FF
-# define DEFAULT_WIDTH  800
-# define DEFAULT_HEIGHT 400
+# define DEFAULT_WIDTH  1200
+# define DEFAULT_HEIGHT 800
 
 typedef		enum
 {

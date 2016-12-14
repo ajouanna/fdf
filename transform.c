@@ -60,6 +60,16 @@ void	isometric_transform(t_context *context)
 			xx = 10 + 0.707 *(x - y);
 			yy = 10 + 0.816 * z -0.408 * (x + y);
 			img_pixel_put(context, xx, yy, context->map_color);
+			ft_putstr(" x=");
+			ft_putnbr(x);
+			ft_putstr(" y=");
+			ft_putnbr(y);
+			ft_putstr(" z=");
+			ft_putnbr(z);
+			ft_putstr(" xx=");
+			ft_putnbr(xx);
+			ft_putstr(" yy=");
+			ft_putnbr(yy);
 			x++;
 		}
 	}
