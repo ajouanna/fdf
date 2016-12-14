@@ -13,13 +13,20 @@
 #include "fdf.h"
 
 /*
-** transforme la carte chargee en image a plat
+** affiche ma photo...
 */
 
-void	flat_transform(t_context *c)
+void	dummy_transform(t_context *c)
 {
-	mlx_string_put(c->mlx, c->win, 10, 30, c->map_color,
-	"Desole, la transformation plate n'est pas encore implementee...");
+	int width;
+	int heigth;
+
+	mlx_string_put(c->mlx, c->win, 10, 40, c->map_color,
+	"Tu veux ma photo ?");
+	c->img = mlx_xpm_file_to_image(c->mlx, MA_PHOTO, &width, &heigth);
+	if (c->img == NULL)
+		mlx_string_put(c->mlx, c->win, 10, 40, c->map_color,
+			"OOPS : ! Fichier manquant ?");
 }
 
 /*
@@ -28,27 +35,39 @@ void	flat_transform(t_context *c)
 
 void	parallel_transform(t_context *c)
 {
-	mlx_string_put(c->mlx, c->win, 10, 30, c->map_color,
+	mlx_string_put(c->mlx, c->win, 10, 40, c->map_color,
 	"Desole, la transformation parallele n'est pas encore implementee...");
 }
 
 /*
-** transforme la carte chargee en image isometrique
 ** theorie : pour transformer une referentieli 3D (x,y,z) en referentiel
 ** 2D (x',y'), on applique ces formules :
 ** x' = rac(2)/2(x -y) = 0,707 (x-y)
 ** y' = rac(2/3) z - 1/rac(6) (x + y) = 0,816 z -0,408 (x+y)
+** FIX THIS : mettre une couleur qui a du sens...
+*/
+
+void	iso_point(t_context *context, int x, int y, int z, t_point *point)
+{
+	x *= context->ratio;
+	y *= context->ratio;
+	point->x = 10 + 0.707 *(x - y);
+	point->y = 10 + 0.816 * z -0.408 * (x + y);
+	point->color = z;
+}
+
+/*
+** transforme la carte chargee en image isometrique
 */
 
 void	isometric_transform(t_context *context)
 {
 	int y;
 	int x;
-	int z;
-	double xx;
-	double yy;
+	t_point p1;
+	t_point p2;
 
-	mlx_string_put(context->mlx, context->win, 10, 30, context->map_color,
+	mlx_string_put(context->mlx, context->win, 10, 40, context->map_color,
 	"Transformation isometrique");
 	y = -1;
 	while (context->map[++y])
@@ -56,20 +75,14 @@ void	isometric_transform(t_context *context)
 		x = 0;
 		while (context->map[y][x] >= 0)
 		{
-			z = context->map[y][x];
-			xx = 10 + 0.707 *(x - y);
-			yy = 10 + 0.816 * z -0.408 * (x + y);
-			img_pixel_put(context, xx, yy, context->map_color);
-			ft_putstr(" x=");
-			ft_putnbr(x);
-			ft_putstr(" y=");
-			ft_putnbr(y);
-			ft_putstr(" z=");
-			ft_putnbr(z);
-			ft_putstr(" xx=");
-			ft_putnbr(xx);
-			ft_putstr(" yy=");
-			ft_putnbr(yy);
+			if (context->map[y][x+1] >= 0)
+			{
+				iso_point(context, x, y, context->map[y][x], &p1);
+				iso_point(context, x + 1, y, context->map[y][x + 1], &p2);
+				img_draw_line(context, p1.x, p1.y,
+							p2.x, p2.y,
+							context->map_color);
+			}
 			x++;
 		}
 	}
@@ -81,6 +94,6 @@ void	isometric_transform(t_context *context)
 
 void	conical_transform(t_context *c)
 {
-	mlx_string_put(c->mlx, c->win, 10, 30, c->map_color,
+	mlx_string_put(c->mlx, c->win, 10, 40, c->map_color,
 	"Desole, la transformation conique n'est pas encore implementee...");
 }

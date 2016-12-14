@@ -17,15 +17,18 @@
 # include "libft.h"
 
 # define DEFAULT_COLOR 0x00FF00FF
-# define DEFAULT_WIDTH  1200
-# define DEFAULT_HEIGHT 800
+# define DEFAULT_WIDTH  800
+# define DEFAULT_HEIGHT 600
+# define MA_PHOTO "./tonio.xpm"
+# define IMG_X 100
+# define IMG_Y 100
 
 typedef		enum
 {
 	PARALLEL,
 	ISOMETRIC,
 	CONICAL,
-	FLAT
+	DUMMY
 }		e_projection_type;
 
 /*
@@ -43,11 +46,21 @@ typedef struct	s_context
 	int		img_size_line;
 	int		img_endian;
 	int			**map;
+	int		img_x;
+	int		img_y;
 	int		map_color;
 	e_projection_type	proj_type;
 	int		width;
 	int		height;
+	int		ratio;
 }				t_context;
+
+typedef	struct			s_point
+{
+	double	x;
+	double	y;
+	int	color;
+} 				t_point;
 
 int				setup_mlx(t_context *context);
 int				read_file(char *filename, t_context *context);
@@ -56,7 +69,9 @@ void			display_commands(t_context *context);
 void			process_image(t_context *context);
 void			reprocess_image(t_context *context);
 void			img_pixel_put(t_context *context, int x, int y, int color);
-void			flat_transform(t_context *c);
+void			img_draw_line(t_context *context, int x1, int y1, int x2, int y2, int color);
+void			clear_image(t_context *context);
+void			dummy_transform(t_context *c);
 void			parallel_transform(t_context *c);
 void			isometric_transform(t_context *c);
 void			conical_transform(t_context *c);

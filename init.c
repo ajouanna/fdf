@@ -22,7 +22,8 @@ int		expose_hook(void *param)
 
 	context = (t_context *)param;
 	mlx_clear_window(context->mlx, context->win);
-	mlx_put_image_to_window(context->mlx,context->win, context->img, context->width, context->height);
+	mlx_put_image_to_window(context->mlx,context->win,
+		context->img, context->img_x, context->img_y);
 	display_commands(context);
 	return (1);
 }
@@ -58,9 +59,9 @@ int		handle_key(int keycode, void *param)
 		reprocess_image(context);
 		return (1);
 	}
-	if ((keycode == 39) || (keycode == 39))
+	if ((keycode == 44) || (keycode == 44))
 	{
-		context->proj_type = FLAT;
+		context->proj_type = DUMMY;
 		reprocess_image(context);
 		return (1);
 	}
@@ -97,10 +98,13 @@ int		setup_mlx(t_context *context)
 		ft_putstr("mlx_init error\n");
 		return (0);
 	}
-	context->proj_type = FLAT;
+	context->proj_type = DUMMY;
 	context->width = DEFAULT_WIDTH;
 	context->height = DEFAULT_HEIGHT;
 	context->map_color = DEFAULT_COLOR;
+	context->ratio = 10;
+	context->img_x = IMG_X;
+	context->img_y = IMG_Y;
 	context->win = mlx_new_window(context->mlx, context->width, context->height,
 			"Antoine");
 	context->img = mlx_new_image(context->mlx, context->width, context->height);
@@ -108,7 +112,7 @@ int		setup_mlx(t_context *context)
 		&(context->img_size_line), &(context->img_endian));
 	process_image(context);
 	mlx_put_image_to_window(context->mlx,context->win, context->img,
-		context->width, context->height);
+		context->img_x, context->img_y);
 	mlx_key_hook(context->win, handle_key, context);
 	mlx_mouse_hook(context->win, handle_mouse, context);
 	mlx_expose_hook(context->win, expose_hook, context);

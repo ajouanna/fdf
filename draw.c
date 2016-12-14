@@ -45,7 +45,21 @@ void	display_commands(t_context *context)
 	mlx_string_put(context->mlx, context->win, 10, 10, context->map_color,
 			"Pour quitter, tapez ESC");
 	mlx_string_put(context->mlx, context->win, 10, 20, context->map_color,
-			"1 a 4  : transformations parallele, iso, conique, plate");
+			"1 a 3  : transformations parallele, iso, conique");
+	mlx_string_put(context->mlx, context->win, 10, 30, context->map_color,
+			"? : A propos");
+}
+
+/*
+** efface le contenu de l'image
+*/
+
+void	clear_image(t_context *context)
+{
+	mlx_destroy_image(context->mlx, context->img);
+	context->img = mlx_new_image(context->mlx, context->width, context->height);
+	context->img_data = mlx_get_data_addr(context->img, &(context->img_bpp),
+		&(context->img_size_line), &(context->img_endian));
 }
 
 /*
@@ -69,6 +83,27 @@ void	img_pixel_put(t_context *context, int x, int y, int color)
 }
 
 /*
+** trace une droite verticale
+*/
+void	draw_vertical(t_context *context, int x, int y1, int y2, int color)
+{
+	int i;
+
+	if (y1 > y2)
+	{
+		i = y1;
+		y1 = y2;
+		y2 = i;
+	}
+	i = y1;
+	while (i <= y2)
+	{
+		img_pixel_put(context, x, i, color);
+		i++;
+	}
+}
+
+/*
 ** trace une droite d'un point a un autre
 ** y = a*x + b
 */
@@ -79,6 +114,11 @@ void	img_draw_line(t_context *context, int x1, int y1, int x2, int y2, int color
 	double b;
 	int i;
 
+	if (x1 == x2)
+	{
+		draw_vertical(context, x1, y1, y2, color);
+		return ;
+	}
 	if (x1 > x2)
 	{
 		i = x1;

@@ -21,8 +21,8 @@
 
 void		process_image(t_context *context)
 {
-	if (context->proj_type == FLAT)
-		flat_transform(context);
+	if (context->proj_type == DUMMY)
+		dummy_transform(context);
 	else if (context->proj_type == CONICAL)
 		conical_transform(context);
 	else if (context->proj_type == PARALLEL)
@@ -38,8 +38,9 @@ void		process_image(t_context *context)
 void		reprocess_image(t_context *context)
 {
 	mlx_clear_window(context->mlx, context->win);
+	clear_image(context);
 	process_image(context);
 	mlx_put_image_to_window(context->mlx,context->win, context->img,
-	        context->width, context->height);
+	        context->img_x, context->img_y);
 	display_commands(context);
 }
