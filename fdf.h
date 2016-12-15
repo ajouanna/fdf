@@ -19,9 +19,10 @@
 # define DEFAULT_COLOR 0x00FF00FF
 # define DEFAULT_WIDTH  800
 # define DEFAULT_HEIGHT 600
+# define DEFAULT_RATIO 5
 # define MA_PHOTO "./tonio.xpm"
-# define IMG_X 100
-# define IMG_Y 100
+# define IMG_X 60
+# define IMG_Y 60
 
 typedef		enum
 {

@@ -65,6 +65,20 @@ int		handle_key(int keycode, void *param)
 		reprocess_image(context);
 		return (1);
 	}
+	if ((keycode == 65451) || (keycode == 65451))
+	{
+		context->ratio += 1;
+		reprocess_image(context);
+		return (1);
+	}
+	if ((keycode == 65453) || (keycode == 65453))
+	{
+		context->ratio -= 1;
+		if (context->ratio <= 0)
+			context->ratio -= 1;
+		reprocess_image(context);
+		return (1);
+	}
 	return (1);
 }
 
@@ -102,7 +116,7 @@ int		setup_mlx(t_context *context)
 	context->width = DEFAULT_WIDTH;
 	context->height = DEFAULT_HEIGHT;
 	context->map_color = DEFAULT_COLOR;
-	context->ratio = 10;
+	context->ratio = DEFAULT_RATIO;
 	context->img_x = IMG_X;
 	context->img_y = IMG_Y;
 	context->win = mlx_new_window(context->mlx, context->width, context->height,

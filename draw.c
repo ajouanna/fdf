@@ -43,11 +43,25 @@ void	draw_square(t_context *c, int x, int y)
 void	display_commands(t_context *context)
 {
 	mlx_string_put(context->mlx, context->win, 10, 10, context->map_color,
-			"Pour quitter, tapez ESC");
+			"Pour quitter, tapez ESC; Pour zoomer, tapez + ou -");
 	mlx_string_put(context->mlx, context->win, 10, 20, context->map_color,
 			"1 a 3  : transformations parallele, iso, conique");
 	mlx_string_put(context->mlx, context->win, 10, 30, context->map_color,
 			"? : A propos");
+}
+
+/*
+** affiche les parametres
+** FIX THIS : ca n affiche rien !!!!!
+*/
+
+void	display_params(t_context *context)
+{
+	char * str;
+
+	str = ft_strcat("Ratio = ", ft_itoa(context->ratio));
+	mlx_string_put(context->mlx, context->win, 10, 40, context->map_color,
+			str);
 }
 
 /*
@@ -128,7 +142,7 @@ void	img_draw_line(t_context *context, int x1, int y1, int x2, int y2, int color
 		y1 = y2;
 		y2 = i;
 	}
-	a = (y2 - y1)/(x2 - x1);
+	a = (double)(y2 - y1)/(double)(x2 - x1);
 	b = y2 - a * x2;
 
 	i = x1;

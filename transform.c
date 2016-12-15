@@ -21,11 +21,11 @@ void	dummy_transform(t_context *c)
 	int width;
 	int heigth;
 
-	mlx_string_put(c->mlx, c->win, 10, 40, c->map_color,
+	mlx_string_put(c->mlx, c->win, 10, 50, c->map_color,
 	"Tu veux ma photo ?");
 	c->img = mlx_xpm_file_to_image(c->mlx, MA_PHOTO, &width, &heigth);
 	if (c->img == NULL)
-		mlx_string_put(c->mlx, c->win, 10, 40, c->map_color,
+		mlx_string_put(c->mlx, c->win, 10, 50, c->map_color,
 			"OOPS : ! Fichier manquant ?");
 }
 
@@ -35,7 +35,7 @@ void	dummy_transform(t_context *c)
 
 void	parallel_transform(t_context *c)
 {
-	mlx_string_put(c->mlx, c->win, 10, 40, c->map_color,
+	mlx_string_put(c->mlx, c->win, 10, 50, c->map_color,
 	"Desole, la transformation parallele n'est pas encore implementee...");
 }
 
@@ -51,8 +51,10 @@ void	iso_point(t_context *context, int x, int y, int z, t_point *point)
 {
 	x *= context->ratio;
 	y *= context->ratio;
-	point->x = 10 + 0.707 *(x - y);
-	point->y = 10 + 0.816 * z -0.408 * (x + y);
+	point->x = context->img_x + 0.707 *(x - y);
+	point->y = context->img_y + 0.816 * z -0.408 * (x + y);
+	point->x *= context->ratio;
+	point->y *= context->ratio;
 	point->color = z;
 }
 
@@ -67,7 +69,7 @@ void	isometric_transform(t_context *context)
 	t_point p1;
 	t_point p2;
 
-	mlx_string_put(context->mlx, context->win, 10, 40, context->map_color,
+	mlx_string_put(context->mlx, context->win, 10, 50, context->map_color,
 	"Transformation isometrique");
 	y = -1;
 	while (context->map[++y])
@@ -94,6 +96,6 @@ void	isometric_transform(t_context *context)
 
 void	conical_transform(t_context *c)
 {
-	mlx_string_put(c->mlx, c->win, 10, 40, c->map_color,
+	mlx_string_put(c->mlx, c->win, 10, 50, c->map_color,
 	"Desole, la transformation conique n'est pas encore implementee...");
 }
