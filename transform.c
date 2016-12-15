@@ -11,9 +11,11 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <unistd.h>
 
 /*
 ** affiche ma photo...
+** en cas d'absence du fichier, affiche la transformation isometrique
 */
 
 void	dummy_transform(t_context *c)
@@ -25,8 +27,12 @@ void	dummy_transform(t_context *c)
 	"Tu veux ma photo ?");
 	c->img = mlx_xpm_file_to_image(c->mlx, MA_PHOTO, &width, &heigth);
 	if (c->img == NULL)
+	{
 		mlx_string_put(c->mlx, c->win, 10, 50, c->map_color,
 			"OOPS : ! Fichier manquant ?");
+		sleep(1);
+		isometric_transform(c);
+	}
 }
 
 /*
@@ -49,12 +55,12 @@ void	parallel_transform(t_context *c)
 
 void	iso_point(t_context *context, int x, int y, int z, t_point *point)
 {
-	x *= context->ratio;
-	y *= context->ratio;
+	x *= context->ratio_xy;
+	y *= context->ratio_xy;
 	point->x = context->img_x + 0.707 *(x - y);
-	point->y = context->img_y + 0.816 * z -0.408 * (x + y);
-	point->x *= context->ratio;
-	point->y *= context->ratio;
+	point->y = context->img_y + 0.816 * z *context->ratio_z -0.408 * (x + y);
+	point->x *= context->ratio_xy;
+	point->y *= context->ratio_xy;
 	point->color = z;
 }
 

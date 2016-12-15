@@ -37,6 +37,34 @@ void	draw_square(t_context *c, int x, int y)
 }
 
 /*
+** affiche les parametres
+*/
+
+void	display_params(t_context *context)
+{
+	char *str;
+
+	str = ft_itoa(context->ratio_xy);
+	ft_putstr("Ratio plan : ");
+	ft_putstr(str);
+	ft_putstr("\n");
+	mlx_string_put(context->mlx, context->win, 10, context->height - 20, context->map_color,
+			"Ratio plan : ");
+	mlx_string_put(context->mlx, context->win, 50, context->height - 20, context->map_color,
+			str);
+	free(str);
+	str = ft_itoa(context->ratio_z);
+	ft_putstr("Ratio vertical : ");
+	ft_putstr(str);
+	ft_putstr("\n");
+	mlx_string_put(context->mlx, context->win, 10, context->height - 10, context->map_color,
+			"Ratio vertical : ");
+	mlx_string_put(context->mlx, context->win, 50, context->height - 10, context->map_color,
+			str);
+	free(str);
+}
+
+/*
 ** affiche les commandes dans la fenetre
 */
 
@@ -48,20 +76,7 @@ void	display_commands(t_context *context)
 			"1 a 3  : transformations parallele, iso, conique");
 	mlx_string_put(context->mlx, context->win, 10, 30, context->map_color,
 			"? : A propos");
-}
-
-/*
-** affiche les parametres
-** FIX THIS : ca n affiche rien !!!!!
-*/
-
-void	display_params(t_context *context)
-{
-	char * str;
-
-	str = ft_strcat("Ratio = ", ft_itoa(context->ratio));
-	mlx_string_put(context->mlx, context->win, 10, 40, context->map_color,
-			str);
+	display_params(context);
 }
 
 /*

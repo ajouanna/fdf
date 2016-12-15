@@ -29,6 +29,56 @@ int		expose_hook(void *param)
 }
 
 /*
+** traitement de plus de touches
+*/
+void		more_keys(int keycode, t_context *context)
+{
+	if ((keycode == 65451) || (keycode == 65451))
+	{
+		context->ratio_xy += 1;
+	}
+	if ((keycode == 65453) || (keycode == 65453))
+	{
+		context->ratio_xy -= 1;
+		if (context->ratio_xy <= 0)
+			context->ratio_xy -= 1;
+	}
+	if ((keycode == 65361) || (keycode == 65361))
+	{
+		context->img_x -=10;
+		if (context->img_x <= 0)
+			context->img_x = 0;
+	}
+	if ((keycode == 65362) || (keycode == 65362))
+	{
+		context->img_y -=10;
+		if (context->img_y <= 0)
+			context->img_y = 0;
+	}
+	if ((keycode == 65363) || (keycode == 65363))
+	{
+		context->img_x +=10;
+		if (context->img_x >= context->width)
+			context->img_x = context->width;
+	}
+	if ((keycode == 65364) || (keycode == 65364))
+	{
+		context->img_y +=10;
+		if (context->img_y >= context->height)
+			context->img_y = context->height;
+	}
+	if ((keycode == 113) || (keycode == 113)) // Q pour agrandir la hauteur
+	{
+		context->ratio_z++;
+	}
+	if ((keycode == 119) || (keycode == 119)) // W pour diminuer la hauteur
+	{
+		context->ratio_z--;
+	}
+
+}
+
+/*
 ** traitement des evenements clavier
 ** FIX THIS : mettre les codes de touche mac
 */
@@ -44,41 +94,21 @@ int		handle_key(int keycode, void *param)
 	if ((keycode == 38) || (keycode == 38))
 	{
 		context->proj_type = PARALLEL;
-		reprocess_image(context);
-		return (1);
 	}
 	if ((keycode == 233) || (keycode == 233))
 	{
 		context->proj_type = ISOMETRIC;
-		reprocess_image(context);
-		return (1);
 	}
 	if ((keycode == 34) || (keycode == 34))
 	{
 		context->proj_type = CONICAL;
-		reprocess_image(context);
-		return (1);
 	}
 	if ((keycode == 44) || (keycode == 44))
 	{
 		context->proj_type = DUMMY;
-		reprocess_image(context);
-		return (1);
 	}
-	if ((keycode == 65451) || (keycode == 65451))
-	{
-		context->ratio += 1;
-		reprocess_image(context);
-		return (1);
-	}
-	if ((keycode == 65453) || (keycode == 65453))
-	{
-		context->ratio -= 1;
-		if (context->ratio <= 0)
-			context->ratio -= 1;
-		reprocess_image(context);
-		return (1);
-	}
+	more_keys(keycode, context);
+	reprocess_image(context);
 	return (1);
 }
 
@@ -112,11 +142,12 @@ int		setup_mlx(t_context *context)
 		ft_putstr("mlx_init error\n");
 		return (0);
 	}
-	context->proj_type = DUMMY;
+	context->proj_type = ISOMETRIC;
 	context->width = DEFAULT_WIDTH;
 	context->height = DEFAULT_HEIGHT;
 	context->map_color = DEFAULT_COLOR;
-	context->ratio = DEFAULT_RATIO;
+	context->ratio_xy = DEFAULT_RATIO;
+	context->ratio_z = 1;
 	context->img_x = IMG_X;
 	context->img_y = IMG_Y;
 	context->win = mlx_new_window(context->mlx, context->width, context->height,

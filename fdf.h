@@ -22,7 +22,7 @@
 # define DEFAULT_RATIO 5
 # define MA_PHOTO "./tonio.xpm"
 # define IMG_X 60
-# define IMG_Y 60
+# define IMG_Y 70
 
 typedef		enum
 {
@@ -53,7 +53,8 @@ typedef struct	s_context
 	e_projection_type	proj_type;
 	int		width;
 	int		height;
-	int		ratio;
+	int		ratio_xy;
+	int		ratio_z;
 }				t_context;
 
 typedef	struct			s_point
