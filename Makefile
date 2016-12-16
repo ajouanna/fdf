@@ -8,7 +8,6 @@ LIST_SRC = $(SRC)/main.c $(SRC)/file.c $(SRC)/draw.c $(SRC)/init.c \
 LIST_OBJ = $(LIST_SRC:$(SRC)/%.c=$(OBJ)/%.o)
 	#CFLAG = -Wall -Wextra -Werror
 CFLAG = -Wall -Wextra -Werror -g 
-LIBSMLX = -lmlx -lframework OpenGL -lframework AppKit
 LIBFT = libft.a
 LIBFTPATH = ./libft/
 INC_LIBFTPATH  = $(LIBFTPATH)includes
@@ -16,9 +15,9 @@ LIBMLXPATH = ../minilibx
 INCMINI = ../minilibx
 OS:=$(shell uname)
 ifeq ($(OS),Linux)
-	LIBSMLX = -lmlx -lXext -lX11
+	LIBSMLX = -lmlx -lXext -lX11 -lm
 else
-	LIBSMLX = -lmlx -framework OpenGL -framework AppKit
+	LIBSMLX = -lmlx -lm -framework OpenGL -framework AppKit
 endif
 all : $(NAME)
 

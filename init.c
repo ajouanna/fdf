@@ -37,13 +37,13 @@ void		more_keys(int keycode, t_context *context)
 {
 	if ((keycode == 257) || (keycode == 65451)) // shft gauche ou + du pave numerique
 	{
-		context->ratio_xy += 1;
+		context->ratio_xy *= 2;
 	}
 	if ((keycode == 258) || (keycode == 65453)) // shft droite ou - du pave numerique
 	{
-		context->ratio_xy -= 1;
+		context->ratio_xy /= 2;
 		if (context->ratio_xy <= 0)
-			context->ratio_xy -= 1;
+			context->ratio_xy = 1;
 	}
 	if ((keycode == 123) || (keycode == 65361)) // fleche gauche
 	{
@@ -71,13 +71,46 @@ void		more_keys(int keycode, t_context *context)
 	}
 	if ((keycode == 0) || (keycode == 113)) // Q pour agrandir la hauteur
 	{
-		context->ratio_z++;
+		context->ratio_z *= 2;
 	}
 	if ((keycode == 6) || (keycode == 119)) // W pour diminuer la hauteur
 	{
-		context->ratio_z--;
+		context->ratio_z /= 2;
+		if (context->ratio_z <= 0)
+			context->ratio_z = 1;
 	}
-
+	if ((keycode == 109) || (keycode == 109)) // M pour monochrome FIX THIS mettre la bonne valeurpour mac
+	{
+		context->is_monochrome = 1;
+	}
+	if ((keycode == 99) || (keycode == 99)) // C pour couleur FIX THIS mettre la bonne valeurpour mac
+	{
+		context->is_monochrome = 0;
+	}
+	if ((keycode == 65430) || (keycode == 65430)) // 4 du pave pour augm alpha FIX THIS mettre la bonne valeurpour mac
+	{
+		context->alpha += M_PI/12;
+		if (context->alpha > M_PI/2)
+			context->alpha = M_PI/2;
+	}
+	if ((keycode == 65432) || (keycode == 65432)) // 6 du pave pour dim alpha FIX THIS mettre la bonne valeurpour mac
+	{
+		context->alpha -= M_PI/12;
+		if (context->alpha <= 0)
+			context->alpha = 0;
+	}
+	if ((keycode == 65431) || (keycode == 65431)) // 8 du pave pour augm omega FIX THIS mettre la bonne valeurpour mac
+	{
+		context->omega += M_PI/12;
+		if (context->omega > M_PI/2)
+			context->omega = M_PI/2;
+	}
+	if ((keycode == 65433) || (keycode == 65433)) // 2 du pave pour dim ommega FIX THIS mettre la bonne valeurpour mac
+	{
+		context->omega -= M_PI/12;
+		if (context->omega <= 0)
+			context->omega = 0;
+	}
 }
 
 /*
@@ -115,19 +148,22 @@ int		handle_key(int keycode, void *param)
 }
 
 /*
-** traitement des evenements souris
+** traitement des evenements souris : replacer l'image a la position
+** initiale
 */
 
 int		handle_mouse(int button, int x, int y, void *param)
 {
-	ft_putstr("mouse button clicked : ");
-	ft_putnbr(button);
-	ft_putstr(" x = ");
-	ft_putnbr(x);
-	ft_putstr(" y = ");
-	ft_putnbr(y);
-	ft_putchar('\n');
-	draw_square(param, x, y);
+	t_context *context = param;
+	(void)button;
+	(void)x;
+	(void)y;
+	context->img_x = IMG_X;
+	context->img_y = IMG_Y;
+	context->ratio_xy = (double)context->width/(double)context->data_width;
+	context->ratio_xy /= 2;
+	context->ratio_z = 1;
+	reprocess_image(context);
 	return (1);
 }
 
@@ -148,10 +184,18 @@ int		setup_mlx(t_context *context)
 	context->width = DEFAULT_WIDTH;
 	context->height = DEFAULT_HEIGHT;
 	context->map_color = DEFAULT_COLOR;
-	context->ratio_xy = DEFAULT_RATIO;
+	context->ratio_xy = (double)context->width/(double)context->data_width;
+	context->ratio_xy /= 2;
 	context->ratio_z = 1;
 	context->img_x = IMG_X;
 	context->img_y = IMG_Y;
+	context->is_monochrome = 1;
+	context->img_leftest.x = context->width;
+	context->img_leftest.y = 0;
+	context->img_upper.x = 0;
+	context->img_upper.y = context->height;
+	context->alpha = M_PI / 5;
+	context->omega = M_PI / 4;
 	context->win = mlx_new_window(context->mlx, context->width, context->height,
 			"Antoine");
 	context->img = mlx_new_image(context->mlx, context->width, context->height);

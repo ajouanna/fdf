@@ -100,24 +100,27 @@ int			check_map(t_context *context)
 	int i;
 	int j;
 	int first_pass;
-	int size_line;
 
-	size_line = 0;
+	context->data_width = 0;
+	context->z_max = 0;
 	first_pass = 1;
 	i = -1;
 	while (context->map[++i])
 	{
 		j = 0;
 		while (context->map[i][j] >= 0)
+		{
+			context->z_max = (context->map[i][j] > context->z_max) ? context->map[i][j] : context->z_max;
 			j++;
+		}
 		if (first_pass)
 		{
 			first_pass = 0;
-			size_line = j;
+			context->data_width = j;
 		}
 		else
 		{
-			if (size_line != j)
+			if (context->data_width != j)
 			{
 				ft_putstr("File  error: all lines should have same # points\n");
 				return (0);

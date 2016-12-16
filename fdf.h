@@ -15,14 +15,18 @@
 
 # include "mlx.h"
 # include "libft.h"
+# include <math.h>
 
 # define DEFAULT_COLOR 0x00FF00FF
-# define DEFAULT_WIDTH  800
+# define DEFAULT_WIDTH  1300
 # define DEFAULT_HEIGHT 600
 # define DEFAULT_RATIO 5
 # define MA_PHOTO "./tonio.xpm"
 # define IMG_X 60
 # define IMG_Y 70
+# ifndef M_PI
+# define M_PI 3.14159
+# endif 
 
 typedef		enum
 {
@@ -36,6 +40,13 @@ typedef		enum
 ** cette structure stocke l'environnement complet necessaire aux
 ** traitements
 */
+
+typedef	struct			s_point
+{
+	double	x;
+	double	y;
+	int	color;
+} 				t_point;
 
 typedef struct	s_context
 {
@@ -53,16 +64,16 @@ typedef struct	s_context
 	e_projection_type	proj_type;
 	int		width;
 	int		height;
-	int		ratio_xy;
-	int		ratio_z;
+	double		ratio_xy;
+	double		ratio_z;
+	int		is_monochrome;
+	t_point		img_upper;
+	t_point		img_leftest;
+	double		alpha;
+	double		omega;
+	int		data_width;
+	int		z_max;
 }				t_context;
-
-typedef	struct			s_point
-{
-	double	x;
-	double	y;
-	int	color;
-} 				t_point;
 
 int				setup_mlx(t_context *context);
 int				read_file(char *filename, t_context *context);

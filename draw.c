@@ -45,21 +45,15 @@ void	display_params(t_context *context)
 	char *str;
 
 	str = ft_itoa(context->ratio_xy);
-	ft_putstr("Ratio plan : ");
-	ft_putstr(str);
-	ft_putstr("\n");
 	mlx_string_put(context->mlx, context->win, 10, context->height - 20, context->map_color,
 			"Ratio plan : ");
-	mlx_string_put(context->mlx, context->win, 50, context->height - 20, context->map_color,
+	mlx_string_put(context->mlx, context->win, 150, context->height - 20, context->map_color,
 			str);
 	free(str);
 	str = ft_itoa(context->ratio_z);
-	ft_putstr("Ratio vertical : ");
-	ft_putstr(str);
-	ft_putstr("\n");
 	mlx_string_put(context->mlx, context->win, 10, context->height - 10, context->map_color,
 			"Ratio vertical : ");
-	mlx_string_put(context->mlx, context->win, 50, context->height - 10, context->map_color,
+	mlx_string_put(context->mlx, context->win, 150, context->height - 10, context->map_color,
 			str);
 	free(str);
 }
@@ -71,9 +65,9 @@ void	display_params(t_context *context)
 void	display_commands(t_context *context)
 {
 	mlx_string_put(context->mlx, context->win, 10, 10, context->map_color,
-			"Pour quitter, tapez ESC; Pour zoomer, tapez + ou -");
+			"Pour quitter, tapez ESC; Pour zoomer, tapez + ou - ; Monochrome, tapez m ; Couleur, tapez c ; deplacer l'image dans la fenetre, tapez les fleches");
 	mlx_string_put(context->mlx, context->win, 10, 20, context->map_color,
-			"1 a 3  : transformations parallele, iso, conique");
+			"1 a 3  : transformations parallele, iso, conique ; 2, 4, 6 et 8 du pave num : changer les angles de vue ; clic : repositionner l image a sa position initiale");
 	mlx_string_put(context->mlx, context->win, 10, 30, context->map_color,
 			"? : A propos");
 	display_params(context);

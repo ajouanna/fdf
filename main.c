@@ -59,7 +59,6 @@ int		main(int argc, char **argv)
 	context.map[0] = 0;
 	if (read_file(argv[1], &context))
 	{
-		print_map(context.map);
 		if (setup_mlx(&context) == 0)
 			return (0);
 	}
