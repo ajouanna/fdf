@@ -12,15 +12,13 @@ LIBSMLX = -lmlx -lframework OpenGL -lframework AppKit
 LIBFT = libft.a
 LIBFTPATH = ./libft/
 INC_LIBFTPATH  = $(LIBFTPATH)includes
+LIBMLXPATH = ../minilibx
+INCMINI = ../minilibx
 OS:=$(shell uname)
 ifeq ($(OS),Linux)
 	LIBSMLX = -lmlx -lXext -lX11
-	LIBMLXPATH = ../minilibx
-	INCMINI = ../minilibx
 else
 	LIBSMLX = -lmlx -framework OpenGL -framework AppKit
-	LIBMLXPATH = .
-	INCMINI = .
 endif
 all : $(NAME)
 

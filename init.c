@@ -30,48 +30,50 @@ int		expose_hook(void *param)
 
 /*
 ** traitement de plus de touches
+** je teste les touches macos et linux
+** FIX THIS : lister les codes touches dans ce commentaire plutot que dans le code
 */
 void		more_keys(int keycode, t_context *context)
 {
-	if ((keycode == 65451) || (keycode == 65451))
+	if ((keycode == 257) || (keycode == 65451)) // shft gauche ou + du pave numerique
 	{
 		context->ratio_xy += 1;
 	}
-	if ((keycode == 65453) || (keycode == 65453))
+	if ((keycode == 258) || (keycode == 65453)) // shft droite ou - du pave numerique
 	{
 		context->ratio_xy -= 1;
 		if (context->ratio_xy <= 0)
 			context->ratio_xy -= 1;
 	}
-	if ((keycode == 65361) || (keycode == 65361))
+	if ((keycode == 123) || (keycode == 65361)) // fleche gauche
 	{
 		context->img_x -=10;
 		if (context->img_x <= 0)
 			context->img_x = 0;
 	}
-	if ((keycode == 65362) || (keycode == 65362))
+	if ((keycode == 126) || (keycode == 65362)) // fleche haute
 	{
 		context->img_y -=10;
 		if (context->img_y <= 0)
 			context->img_y = 0;
 	}
-	if ((keycode == 65363) || (keycode == 65363))
+	if ((keycode == 124) || (keycode == 65363)) //fleche droite
 	{
 		context->img_x +=10;
 		if (context->img_x >= context->width)
 			context->img_x = context->width;
 	}
-	if ((keycode == 65364) || (keycode == 65364))
+	if ((keycode == 125) || (keycode == 65364)) //fleche basse
 	{
 		context->img_y +=10;
 		if (context->img_y >= context->height)
 			context->img_y = context->height;
 	}
-	if ((keycode == 113) || (keycode == 113)) // Q pour agrandir la hauteur
+	if ((keycode == 0) || (keycode == 113)) // Q pour agrandir la hauteur
 	{
 		context->ratio_z++;
 	}
-	if ((keycode == 119) || (keycode == 119)) // W pour diminuer la hauteur
+	if ((keycode == 6) || (keycode == 119)) // W pour diminuer la hauteur
 	{
 		context->ratio_z--;
 	}
@@ -89,21 +91,21 @@ int		handle_key(int keycode, void *param)
 	ft_putstr("key pressed : ");
 	ft_putnbr(keycode);
 	ft_putchar('\n');
-	if ((keycode == 53) || (keycode == 65307))
+	if ((keycode == 53) || (keycode == 65307)) // ESC
 		exit(0);
-	if ((keycode == 38) || (keycode == 38))
+	if ((keycode == 18) || (keycode == 38)) // touche 1
 	{
 		context->proj_type = PARALLEL;
 	}
-	if ((keycode == 233) || (keycode == 233))
+	if ((keycode == 19) || (keycode == 233)) // touche 2
 	{
 		context->proj_type = ISOMETRIC;
 	}
-	if ((keycode == 34) || (keycode == 34))
+	if ((keycode == 20) || (keycode == 34)) // touche 3
 	{
 		context->proj_type = CONICAL;
 	}
-	if ((keycode == 44) || (keycode == 44))
+	if ((keycode == 46) || (keycode == 44)) // touche ?
 	{
 		context->proj_type = DUMMY;
 	}
