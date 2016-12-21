@@ -79,33 +79,33 @@ void		more_keys(int keycode, t_context *context)
 		if (context->ratio_z <= 0)
 			context->ratio_z = 1;
 	}
-	if ((keycode == 109) || (keycode == 109)) // M pour monochrome FIX THIS mettre la bonne valeurpour mac
+	if ((keycode == 41) || (keycode == 109)) // M pour monochrome
 	{
 		context->is_monochrome = 1;
 	}
-	if ((keycode == 99) || (keycode == 99)) // C pour couleur FIX THIS mettre la bonne valeurpour mac
+	if ((keycode == 8) || (keycode == 99)) // C pour couleur
 	{
 		context->is_monochrome = 0;
 	}
-	if ((keycode == 65430) || (keycode == 65430)) // 4 du pave pour augm alpha FIX THIS mettre la bonne valeurpour mac
+	if ((keycode == 12) || (keycode == 65430)) // 4 du pave pour augm alpha FIX THIS mettre la bonne valeurpour mac
 	{
 		context->alpha += M_PI/12;
 		if (context->alpha > M_PI/2)
 			context->alpha = M_PI/2;
 	}
-	if ((keycode == 65432) || (keycode == 65432)) // 6 du pave pour dim alpha FIX THIS mettre la bonne valeurpour mac
+	if ((keycode == 14) || (keycode == 65432)) // 6 du pave pour dim alpha FIX THIS mettre la bonne valeurpour mac
 	{
 		context->alpha -= M_PI/12;
 		if (context->alpha <= 0)
 			context->alpha = 0;
 	}
-	if ((keycode == 65431) || (keycode == 65431)) // 8 du pave pour augm omega FIX THIS mettre la bonne valeurpour mac
+	if ((keycode == 13) || (keycode == 65431)) // 8 du pave pour augm omega FIX THIS mettre la bonne valeurpour mac
 	{
 		context->omega += M_PI/12;
 		if (context->omega > M_PI/2)
 			context->omega = M_PI/2;
 	}
-	if ((keycode == 65433) || (keycode == 65433)) // 2 du pave pour dim ommega FIX THIS mettre la bonne valeurpour mac
+	if ((keycode == 1) || (keycode == 65433)) // 2 du pave pour dim ommega FIX THIS mettre la bonne valeurpour mac
 	{
 		context->omega -= M_PI/12;
 		if (context->omega <= 0)
@@ -190,10 +190,10 @@ int		setup_mlx(t_context *context)
 	context->img_x = IMG_X;
 	context->img_y = IMG_Y;
 	context->is_monochrome = 1;
-	context->img_leftest.x = context->width;
+	context->img_leftest.x = context->width / 2;
 	context->img_leftest.y = 0;
 	context->img_upper.x = 0;
-	context->img_upper.y = context->height;
+	context->img_upper.y = context->height / 2;
 	context->alpha = M_PI / 5;
 	context->omega = M_PI / 4;
 	context->win = mlx_new_window(context->mlx, context->width, context->height,
