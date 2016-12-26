@@ -102,14 +102,18 @@ void		more_keys(int keycode, t_context *context)
 	if ((keycode == 13) || (keycode == 65431)) // 8 du pave pour augm omega FIX THIS mettre la bonne valeurpour mac
 	{
 		context->omega += M_PI/12;
+		/*
 		if (context->omega > M_PI/2)
 			context->omega = M_PI/2;
+			*/
 	}
 	if ((keycode == 1) || (keycode == 65433)) // 2 du pave pour dim ommega FIX THIS mettre la bonne valeurpour mac
 	{
 		context->omega -= M_PI/12;
+		/*
 		if (context->omega <= 0)
 			context->omega = 0;
+			*/
 	}
 }
 
