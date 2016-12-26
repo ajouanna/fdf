@@ -190,10 +190,14 @@ int		setup_mlx(t_context *context)
 	context->img_x = IMG_X;
 	context->img_y = IMG_Y;
 	context->is_monochrome = 1;
-	context->img_leftest.x = context->width / 2;
+	context->img_leftest.x = context->width / 4;
 	context->img_leftest.y = 0;
+	context->img_rightest.x = context->width / 2;
+	context->img_rightest.y = 0;
 	context->img_upper.x = 0;
-	context->img_upper.y = context->height / 2;
+	context->img_upper.y = context->height / 4;
+	context->img_lower.x = 0;
+	context->img_lower.y = context->height / 2;
 	context->alpha = M_PI / 5;
 	context->omega = M_PI / 4;
 	context->win = mlx_new_window(context->mlx, context->width, context->height,

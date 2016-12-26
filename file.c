@@ -17,7 +17,7 @@
 #include <errno.h>
 
 /*
-** agrandit un tableau d'int termine par un -1 et ajoute la
+** agrandit un tableau d'int termine par un END_LINE et ajoute la
 ** ligne int_tab
 */
 
@@ -45,7 +45,8 @@ static int	realloc_tab(t_context *context, int *int_tab)
 }
 
 /*
-** transforme un char ** en int * dont la derniere valeur est -1
+** transforme un char ** en int * dont la derniere valeur est END_LINE
+** FIX THIS : si END_LINE est une valeur lue dans le fichier, ca fausse tout...
 */
 
 static int	*convert_to_tabint(char **tab)
@@ -67,7 +68,7 @@ static int	*convert_to_tabint(char **tab)
 		res[i] = ft_atoi(tab[i]);
 		i++;
 	}
-	res[i] = -1;
+	res[i] = END_LINE;
 	return (res);
 }
 
@@ -108,7 +109,7 @@ int			check_map(t_context *context)
 	while (context->map[++i])
 	{
 		j = 0;
-		while (context->map[i][j] >= 0)
+		while (context->map[i][j] != END_LINE)
 		{
 			context->z_max = (context->map[i][j] > context->z_max) ? context->map[i][j] : context->z_max;
 			j++;
@@ -131,7 +132,7 @@ int			check_map(t_context *context)
 }
 
 /*
-** lecture du fichier contenant la carte:w
+** lecture du fichier contenant la carte
 */
 
 int			read_file(char *filename, t_context *context)

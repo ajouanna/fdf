@@ -17,7 +17,7 @@
 # include "libft.h"
 # include <math.h>
 
-# define DEFAULT_COLOR 0x00FF00FF
+# define DEFAULT_COLOR 0x00FF11FF
 # define DEFAULT_WIDTH  1300
 # define DEFAULT_HEIGHT 600
 # define DEFAULT_RATIO 5
@@ -27,7 +27,7 @@
 # ifndef M_PI
 # define M_PI 3.14159
 # endif 
-
+# define END_LINE -0xFFFF
 typedef		enum
 {
 	PARALLEL,
@@ -68,7 +68,9 @@ typedef struct	s_context
 	double		ratio_z;
 	int		is_monochrome;
 	t_point		img_upper;
+	t_point		img_lower;
 	t_point		img_leftest;
+	t_point		img_rightest;
 	double		alpha;
 	double		omega;
 	int		data_width;

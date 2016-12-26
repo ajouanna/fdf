@@ -88,7 +88,7 @@ void	iso_point(t_context *context, int x, int y, int z, t_point *point)
 }
 
 /*
-** détermine les points les plus en haut et a gauche de l'image
+** détermine les points extremes de l'image
 */
 
 void	check_corner_point(t_context *context, t_point *point)
@@ -102,6 +102,16 @@ void	check_corner_point(t_context *context, t_point *point)
 	{
 		context->img_upper.x = point->x;
 		context->img_upper.y = point->y;
+	}
+	if (point->x > context->img_rightest.x)
+	{
+		context->img_rightest.x = point->x;
+		context->img_rightest.y = point->y;
+	}
+	if (point->y > context->img_lower.y)
+	{
+		context->img_lower.x = point->x;
+		context->img_lower.y = point->y;
 	}
 }
 
@@ -122,7 +132,7 @@ void	isometric_transform(t_context *context)
 	while (context->map[++y])
 	{
 		x = 0;
-		while (context->map[y][x] >= 0)
+		while (context->map[y][x] != END_LINE)
 		{
 			iso_point(context, x, y, context->map[y][x], &p1);
 			if (context->map[y][x+1] >= 0)
@@ -147,10 +157,18 @@ void	isometric_transform(t_context *context)
 	ft_putnbr(context->img_upper.x);
 	ft_putstr(", ");
 	ft_putnbr(context->img_upper.y);
-	ft_putstr(" Leftest (x,y) : (");
+	ft_putstr(") Lower (x,y) : (");
+	ft_putnbr(context->img_lower.x);
+	ft_putstr(", ");
+	ft_putnbr(context->img_lower.y);
+	ft_putstr(") Leftest (x,y) : (");
 	ft_putnbr(context->img_leftest.x);
 	ft_putstr(", ");
 	ft_putnbr(context->img_leftest.y);
+	ft_putstr(") Rightest (x,y) : (");
+	ft_putnbr(context->img_rightest.x);
+	ft_putstr(", ");
+	ft_putnbr(context->img_rightest.y);
 	ft_putstr(")\n");
 }
 
