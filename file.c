@@ -104,6 +104,7 @@ int			check_map(t_context *context)
 
 	context->data_width = 0;
 	context->z_max = 0;
+	context->z_min = 0;
 	first_pass = 1;
 	i = -1;
 	while (context->map[++i])
@@ -112,6 +113,7 @@ int			check_map(t_context *context)
 		while (context->map[i][j] != END_LINE)
 		{
 			context->z_max = (context->map[i][j] > context->z_max) ? context->map[i][j] : context->z_max;
+			context->z_min = (context->map[i][j] < context->z_min) ? context->map[i][j] : context->z_min;
 			j++;
 		}
 		if (first_pass)

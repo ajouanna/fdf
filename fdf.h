@@ -75,6 +75,7 @@ typedef struct	s_context
 	double		omega;
 	int		data_width;
 	int		z_max;
+	int		z_min;
 }				t_context;
 
 int				setup_mlx(t_context *context);

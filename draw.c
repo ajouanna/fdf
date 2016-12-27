@@ -38,6 +38,9 @@ void	draw_square(t_context *c, int x, int y)
 
 /*
 ** affiche les parametres
+** FIX THIS : ft_itoa convertit in entier en chaine. Si je lui passe un double,
+** c est la partie entiere du double qui sera prise en compte, d ou un affichage
+** tronque
 */
 
 void	display_params(t_context *context)
@@ -51,9 +54,21 @@ void	display_params(t_context *context)
 			str);
 	free(str);
 	str = ft_itoa(context->ratio_z);
-	mlx_string_put(context->mlx, context->win, 10, context->height - 10, context->map_color,
+	mlx_string_put(context->mlx, context->win, 300, context->height - 20, context->map_color,
 			"Ratio vertical : ");
+	mlx_string_put(context->mlx, context->win, 450, context->height - 20, context->map_color,
+			str);
+	free(str);
+	str = ft_itoa(context->alpha * 180 / M_PI);
+	mlx_string_put(context->mlx, context->win, 10, context->height - 10, context->map_color,
+			"Alpha (deg): ");
 	mlx_string_put(context->mlx, context->win, 150, context->height - 10, context->map_color,
+			str);
+	free(str);
+	str = ft_itoa(context->omega * 180 / M_PI);
+	mlx_string_put(context->mlx, context->win, 300, context->height - 10, context->map_color,
+			"Omega (deg): ");
+	mlx_string_put(context->mlx, context->win, 450, context->height - 10, context->map_color,
 			str);
 	free(str);
 }

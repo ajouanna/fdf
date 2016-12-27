@@ -58,12 +58,14 @@ int	color(t_context *context, int z)
 		return (context->map_color);
 	else
 	{
-		ratio = (double)z/(double)context->z_max;
-		if (ratio <= 0.33)
+		ratio = (double)(z - context->z_min)/(double)(context->z_max - context->z_min);
+		if (ratio <= 0.25)
+			return (0x00000FF0);
+		if (ratio > 0.25 && ratio <= 0.50)
 			return (0x0000FF00);
-		if (ratio > 0.33 && ratio <= 0.66)
+		if (ratio > 0.50 && ratio <= 0.75)
 			return (0x00555550);
-		if (ratio > 0.66)
+		if (ratio > 0.75)
 			return (0x00FFFFFF);
 		return (context->map_color); 
 	}
@@ -77,14 +79,11 @@ int	color(t_context *context, int z)
 
 void	iso_point(t_context *context, int x, int y, int z, t_point *point)
 {
-	double k; // rapport de fuite pour perspective cavaliere
-
-	k = 1;
 	x *= context->ratio_xy;
 	y *= context->ratio_xy;
-	point->x = cos(context->omega) * x - k * sin(context->omega) * y;
+	point->x = cos(context->omega) * x - sin(context->omega) * y;
 	point->y = cos(context->alpha) * z * context->ratio_z -
-			sin(context->alpha) * (sin(context->omega) * x + k * cos(context->omega) * y);
+			sin(context->alpha) * (sin(context->omega) * x + cos(context->omega) * y);
 	point->x = context->width /2 + point->x;
 	point->y = - point->y;
 	point->color = color(context, z);
@@ -155,24 +154,6 @@ void	isometric_transform(t_context *context)
 			x++;
 		}
 	}
-	// debug
-	ft_putstr("Upper (x,y) : (");
-	ft_putnbr(context->img_upper.x);
-	ft_putstr(", ");
-	ft_putnbr(context->img_upper.y);
-	ft_putstr(") Lower (x,y) : (");
-	ft_putnbr(context->img_lower.x);
-	ft_putstr(", ");
-	ft_putnbr(context->img_lower.y);
-	ft_putstr(") Leftest (x,y) : (");
-	ft_putnbr(context->img_leftest.x);
-	ft_putstr(", ");
-	ft_putnbr(context->img_leftest.y);
-	ft_putstr(") Rightest (x,y) : (");
-	ft_putnbr(context->img_rightest.x);
-	ft_putstr(", ");
-	ft_putnbr(context->img_rightest.y);
-	ft_putstr(")\n");
 }
 
 /*

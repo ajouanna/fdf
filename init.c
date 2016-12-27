@@ -37,11 +37,11 @@ void		more_keys(int keycode, t_context *context)
 {
 	if ((keycode == 257) || (keycode == 65451)) // shft gauche ou + du pave numerique
 	{
-		context->ratio_xy *= 2;
+		context->ratio_xy += 0.5;
 	}
 	if ((keycode == 258) || (keycode == 65453)) // shft droite ou - du pave numerique
 	{
-		context->ratio_xy /= 2;
+		context->ratio_xy -= 0.5;
 		if (context->ratio_xy <= 0)
 			context->ratio_xy = 1;
 	}
@@ -71,11 +71,11 @@ void		more_keys(int keycode, t_context *context)
 	}
 	if ((keycode == 0) || (keycode == 113)) // Q pour agrandir la hauteur
 	{
-		context->ratio_z *= 2;
+		context->ratio_z += 0.5;
 	}
 	if ((keycode == 6) || (keycode == 119)) // W pour diminuer la hauteur
 	{
-		context->ratio_z /= 2;
+		context->ratio_z -= 0.5;
 		if (context->ratio_z <= 0)
 			context->ratio_z = 1;
 	}
@@ -102,18 +102,10 @@ void		more_keys(int keycode, t_context *context)
 	if ((keycode == 13) || (keycode == 65431)) // 8 du pave pour augm omega FIX THIS mettre la bonne valeurpour mac
 	{
 		context->omega += M_PI/12;
-		/*
-		if (context->omega > M_PI/2)
-			context->omega = M_PI/2;
-			*/
 	}
 	if ((keycode == 1) || (keycode == 65433)) // 2 du pave pour dim ommega FIX THIS mettre la bonne valeurpour mac
 	{
 		context->omega -= M_PI/12;
-		/*
-		if (context->omega <= 0)
-			context->omega = 0;
-			*/
 	}
 }
 
@@ -202,8 +194,8 @@ int		setup_mlx(t_context *context)
 	context->img_upper.y = context->height / 4;
 	context->img_lower.x = 0;
 	context->img_lower.y = context->height / 2;
-	context->alpha = M_PI / 5;
-	context->omega = M_PI / 4;
+	context->alpha = 2 * M_PI / 6;
+	context->omega = M_PI / 6;
 	context->win = mlx_new_window(context->mlx, context->width, context->height,
 			"Antoine");
 	context->img = mlx_new_image(context->mlx, context->width, context->height);
