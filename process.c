@@ -26,9 +26,15 @@ void		process_image(t_context *context)
 	else if (context->proj_type == CONICAL)
 		conical_transform(context);
 	else if (context->proj_type == PARALLEL)
+	{
+		context->omega = M_PI / 4;
 		parallel_transform(context);
+	}
 	else if (context->proj_type == ISOMETRIC)
+	{
+		context->omega = M_PI / 6;
 		isometric_transform(context);
+	}
 }
 
 /*

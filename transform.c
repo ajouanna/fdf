@@ -41,8 +41,7 @@ void	dummy_transform(t_context *c)
 
 void	parallel_transform(t_context *c)
 {
-	mlx_string_put(c->mlx, c->win, 10, 50, c->map_color,
-	"Desole, la transformation parallele n'est pas encore implementee...");
+	isometric_transform(c);
 }
 
 /*
@@ -128,8 +127,6 @@ void	isometric_transform(t_context *context)
 	t_point p1;
 	t_point p2;
 
-	mlx_string_put(context->mlx, context->win, 10, 50, context->map_color,
-	"Transformation isometrique");
 	y = -1;
 	while (context->map[++y])
 	{
