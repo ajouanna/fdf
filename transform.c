@@ -77,12 +77,15 @@ int	color(t_context *context, int z)
 
 void	iso_point(t_context *context, int x, int y, int z, t_point *point)
 {
+	double k; // rapport de fuite pour perspective cavaliere
+
+	k = 1;
 	x *= context->ratio_xy;
 	y *= context->ratio_xy;
-	point->x = cos(context->omega) * x - sin(context->omega) * y;
+	point->x = cos(context->omega) * x - k * sin(context->omega) * y;
 	point->y = cos(context->alpha) * z * context->ratio_z -
-			sin(context->alpha) * (sin(context->omega) * x + cos(context->omega) * y);
-	point->x = context->width /3 + point->x;
+			sin(context->alpha) * (sin(context->omega) * x + k * cos(context->omega) * y);
+	point->x = context->width /2 + point->x;
 	point->y = - point->y;
 	point->color = color(context, z);
 }
