@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 17:14:45 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/12 17:21:04 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/28 15:53:06 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		reprocess_image(t_context *context)
 	mlx_clear_window(context->mlx, context->win);
 	clear_image(context);
 	process_image(context);
-	mlx_put_image_to_window(context->mlx,context->win, context->img,
-	        context->img_x, context->img_y);
+	mlx_put_image_to_window(context->mlx, context->win, context->img,
+		context->img_x, context->img_y);
 	display_commands(context);
 }

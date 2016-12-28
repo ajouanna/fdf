@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 17:14:45 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/12 17:21:04 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/28 15:31:03 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ int		expose_hook(void *param)
 */
 void		more_keys(int keycode, t_context *context)
 {
-	if ((keycode == 257) || (keycode == 65451)) // shft gauche ou + du pave numerique
+	if ((keycode == 257) || (keycode == 69) || (keycode == 65451)) // shft gauche ou + du pave numerique
 	{
 		context->ratio_xy += 0.5;
 	}
-	if ((keycode == 258) || (keycode == 65453)) // shft droite ou - du pave numerique
+	if ((keycode == 258) || (keycode == 78) || (keycode == 65453)) // shft droite ou - du pave numerique
 	{
 		context->ratio_xy -= 0.5;
 		if (context->ratio_xy <= 0)
@@ -79,13 +79,9 @@ void		more_keys(int keycode, t_context *context)
 		if (context->ratio_z <= 0)
 			context->ratio_z = 1;
 	}
-	if ((keycode == 41) || (keycode == 109)) // M pour monochrome
-	{
-		context->is_monochrome = 1;
-	}
 	if ((keycode == 8) || (keycode == 99)) // C pour couleur
 	{
-		context->is_monochrome = 0;
+		context->is_monochrome = (context->is_monochrome == 0) ? 1 : 0;
 	}
 	if ((keycode == 12) || (keycode == 65430)) // 4 du pave pour augm alpha FIX THIS mettre la bonne valeurpour mac
 	{

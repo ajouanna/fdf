@@ -6,35 +6,11 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 16:03:22 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/12 17:19:26 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/28 15:50:39 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-/*
-** dessine un carre a la position fournie dans la fenetre
-*/
-
-void	draw_square(t_context *c, int x, int y)
-{
-	int xx;
-	int yy;
-	int size;
-
-	size = 50;
-	yy = y;
-	while (yy < y + size)
-	{
-		xx = x;
-		while (xx < x + size)
-		{
-			mlx_pixel_put(c->mlx, c->win, xx, yy, c->map_color);
-			xx++;
-		}
-		yy++;
-	}
-}
 
 /*
 ** affiche les parametres
@@ -43,32 +19,32 @@ void	draw_square(t_context *c, int x, int y)
 ** tronque
 */
 
-void	display_params(t_context *context)
+void	display_params(t_context *c)
 {
 	char *str;
 
-	str = ft_itoa(context->ratio_xy);
-	mlx_string_put(context->mlx, context->win, 10, context->height - 20, context->map_color,
+	str = ft_itoa(c->ratio_xy);
+	mlx_string_put(c->mlx, c->win, 10, c->height - 30, c->map_color,
 			"Ratio plan : ");
-	mlx_string_put(context->mlx, context->win, 150, context->height - 20, context->map_color,
+	mlx_string_put(c->mlx, c->win, 150, c->height - 30, c->map_color,
 			str);
 	free(str);
-	str = ft_itoa(context->ratio_z);
-	mlx_string_put(context->mlx, context->win, 300, context->height - 20, context->map_color,
+	str = ft_itoa(c->ratio_z);
+	mlx_string_put(c->mlx, c->win, 300, c->height - 30, c->map_color,
 			"Ratio vertical : ");
-	mlx_string_put(context->mlx, context->win, 450, context->height - 20, context->map_color,
+	mlx_string_put(c->mlx, c->win, 450, c->height - 30, c->map_color,
 			str);
 	free(str);
-	str = ft_itoa(context->alpha * 180 / M_PI);
-	mlx_string_put(context->mlx, context->win, 10, context->height - 10, context->map_color,
+	str = ft_itoa(c->alpha * 180 / M_PI);
+	mlx_string_put(c->mlx, c->win, 10, c->height - 20, c->map_color,
 			"Alpha (deg): ");
-	mlx_string_put(context->mlx, context->win, 150, context->height - 10, context->map_color,
+	mlx_string_put(c->mlx, c->win, 150, c->height - 20, c->map_color,
 			str);
 	free(str);
-	str = ft_itoa(context->omega * 180 / M_PI);
-	mlx_string_put(context->mlx, context->win, 300, context->height - 10, context->map_color,
+	str = ft_itoa(c->omega * 180 / M_PI);
+	mlx_string_put(c->mlx, c->win, 300, c->height - 20, c->map_color,
 			"Omega (deg): ");
-	mlx_string_put(context->mlx, context->win, 450, context->height - 10, context->map_color,
+	mlx_string_put(c->mlx, c->win, 450, c->height - 20, c->map_color,
 			str);
 	free(str);
 }
@@ -77,15 +53,21 @@ void	display_params(t_context *context)
 ** affiche les commandes dans la fenetre
 */
 
-void	display_commands(t_context *context)
+void	display_commands(t_context *c)
 {
-	mlx_string_put(context->mlx, context->win, 10, 10, context->map_color,
-			"Pour quitter, tapez ESC; Pour zoomer, tapez + ou - ; Monochrome, tapez m ; Couleur, tapez c ; deplacer l'image dans la fenetre, tapez les fleches");
-	mlx_string_put(context->mlx, context->win, 10, 20, context->map_color,
-			"1 a 3  : transformations parallele, iso, conique ; 2, 4, 6 et 8 du pave num : changer les angles de vue ; clic : repositionner l image a sa position initiale");
-	mlx_string_put(context->mlx, context->win, 10, 30, context->map_color,
+	mlx_string_put(c->mlx, c->win, 10, 10, c->map_color,
+	"Quitter, tapez ESC; Zoomer, tapez + ou - ; Couleur/Mono, tapez c");
+	mlx_string_put(c->mlx, c->win, 10, 25, c->map_color,
+   	"Deplacer l'image dans la fenetre, tapez les fleches");
+	mlx_string_put(c->mlx, c->win, 10, 50, c->map_color,
+	"1 a 3 : transformations parallele, iso, conique");
+	mlx_string_put(c->mlx, c->win, 10, 65, c->map_color,
+	   "2, 4, 6 et 8 du pave num : changer les angles de vue");
+	mlx_string_put(c->mlx, c->win, 10, 80, c->map_color,
+   	"Clic : repositionner l image a sa position initiale");
+	mlx_string_put(c->mlx, c->win, 10, 95, c->map_color,
 			"? : A propos");
-	display_params(context);
+	display_params(c);
 }
 
 /*
@@ -146,7 +128,7 @@ void	draw_vertical(t_context *context, int x, int y1, int y2, int color)
 ** y = a*x + b
 */
 
-void	img_draw_line(t_context *context, int x1, int y1, int x2, int y2, int color)
+void	img_draw_line(t_context *c, int x1, int y1, int x2, int y2, int color)
 {
 	double a;
 	double b;
@@ -154,7 +136,7 @@ void	img_draw_line(t_context *context, int x1, int y1, int x2, int y2, int color
 
 	if (x1 == x2)
 	{
-		draw_vertical(context, x1, y1, y2, color);
+		draw_vertical(c, x1, y1, y2, color);
 		return ;
 	}
 	if (x1 > x2)
@@ -172,7 +154,7 @@ void	img_draw_line(t_context *context, int x1, int y1, int x2, int y2, int color
 	i = x1;
 	while (i <= x2)
 	{
-		img_pixel_put(context, i, (a * i + b), color);
+		img_pixel_put(c, i, (a * i + b), color);
 		i++;
 	}
 }
