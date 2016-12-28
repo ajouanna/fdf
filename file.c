@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:06:48 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/12 17:27:22 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/28 17:47:47 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,34 +96,34 @@ static int	insert_line(t_context *context, char *line)
 ** toutes les lignes ont la meme largeur
 */
 
-int			check_map(t_context *context)
+int			check_map(t_context *c)
 {
 	int i;
 	int j;
 	int first_pass;
 
-	context->data_width = 0;
-	context->z_max = 0;
-	context->z_min = 0;
+	c->data_width = 0;
+	c->z_max = 0;
+	c->z_min = 0;
 	first_pass = 1;
 	i = -1;
-	while (context->map[++i])
+	while (c->map[++i])
 	{
 		j = 0;
-		while (context->map[i][j] != END_LINE)
+		while (c->map[i][j] != END_LINE)
 		{
-			context->z_max = (context->map[i][j] > context->z_max) ? context->map[i][j] : context->z_max;
-			context->z_min = (context->map[i][j] < context->z_min) ? context->map[i][j] : context->z_min;
+			c->z_max = (c->map[i][j] > c->z_max) ? c->map[i][j] : c->z_max;
+			c->z_min = (c->map[i][j] < c->z_min) ? c->map[i][j] : c->z_min;
 			j++;
 		}
 		if (first_pass)
 		{
 			first_pass = 0;
-			context->data_width = j;
+			c->data_width = j;
 		}
 		else
 		{
-			if (context->data_width != j)
+			if (c->data_width != j)
 			{
 				ft_putstr("File  error: all lines should have same # points\n");
 				return (0);

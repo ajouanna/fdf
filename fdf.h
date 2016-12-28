@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:06:48 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/28 16:12:22 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/28 17:07:06 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,5 @@ void			isometric_transform(t_context *c);
 void			conical_transform(t_context *c);
 void			check_corner_point(t_context *context, t_point *point);
 int				color(t_context *context, int z);
+int				handle_key(int keycode, void *param);
 #endif

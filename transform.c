@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 16:03:22 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/28 16:18:26 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/28 16:35:07 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ void	isometric_transform(t_context *context)
 
 void	conical_transform(t_context *c)
 {
-	mlx_string_put(c->mlx, c->win, 10, 50, c->map_color,
+	mlx_string_put(c->mlx, c->win, 10, 110, c->map_color,
 	"Desole, la transformation conique n'est pas encore implementee...");
 }

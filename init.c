@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 17:14:45 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/28 15:31:03 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/28 17:05:39 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,117 +25,6 @@ int		expose_hook(void *param)
 	mlx_put_image_to_window(context->mlx,context->win,
 		context->img, context->img_x, context->img_y);
 	display_commands(context);
-	return (1);
-}
-
-/*
-** traitement de plus de touches
-** je teste les touches macos et linux
-** FIX THIS : lister les codes touches dans ce commentaire plutot que dans le code
-*/
-void		more_keys(int keycode, t_context *context)
-{
-	if ((keycode == 257) || (keycode == 69) || (keycode == 65451)) // shft gauche ou + du pave numerique
-	{
-		context->ratio_xy += 0.5;
-	}
-	if ((keycode == 258) || (keycode == 78) || (keycode == 65453)) // shft droite ou - du pave numerique
-	{
-		context->ratio_xy -= 0.5;
-		if (context->ratio_xy <= 0)
-			context->ratio_xy = 1;
-	}
-	if ((keycode == 123) || (keycode == 65361)) // fleche gauche
-	{
-		context->img_x -=10;
-		if (context->img_x <= 0)
-			context->img_x = 0;
-	}
-	if ((keycode == 126) || (keycode == 65362)) // fleche haute
-	{
-		context->img_y -=10;
-		if (context->img_y <= 0)
-			context->img_y = 0;
-	}
-	if ((keycode == 124) || (keycode == 65363)) //fleche droite
-	{
-		context->img_x +=10;
-		if (context->img_x >= context->width)
-			context->img_x = context->width;
-	}
-	if ((keycode == 125) || (keycode == 65364)) //fleche basse
-	{
-		context->img_y +=10;
-		if (context->img_y >= context->height)
-			context->img_y = context->height;
-	}
-	if ((keycode == 0) || (keycode == 113)) // Q pour agrandir la hauteur
-	{
-		context->ratio_z += 0.5;
-	}
-	if ((keycode == 6) || (keycode == 119)) // W pour diminuer la hauteur
-	{
-		context->ratio_z -= 0.5;
-		if (context->ratio_z <= 0)
-			context->ratio_z = 1;
-	}
-	if ((keycode == 8) || (keycode == 99)) // C pour couleur
-	{
-		context->is_monochrome = (context->is_monochrome == 0) ? 1 : 0;
-	}
-	if ((keycode == 12) || (keycode == 65430)) // 4 du pave pour augm alpha FIX THIS mettre la bonne valeurpour mac
-	{
-		context->alpha += M_PI/12;
-		if (context->alpha > M_PI/2)
-			context->alpha = M_PI/2;
-	}
-	if ((keycode == 14) || (keycode == 65432)) // 6 du pave pour dim alpha FIX THIS mettre la bonne valeurpour mac
-	{
-		context->alpha -= M_PI/12;
-		if (context->alpha <= 0)
-			context->alpha = 0;
-	}
-	if ((keycode == 13) || (keycode == 65431)) // 8 du pave pour augm omega FIX THIS mettre la bonne valeurpour mac
-	{
-		context->omega += M_PI/12;
-	}
-	if ((keycode == 1) || (keycode == 65433)) // 2 du pave pour dim ommega FIX THIS mettre la bonne valeurpour mac
-	{
-		context->omega -= M_PI/12;
-	}
-}
-
-/*
-** traitement des evenements clavier
-** FIX THIS : mettre les codes de touche mac
-*/
-
-int		handle_key(int keycode, void *param)
-{
-	t_context *context = param;
-	ft_putstr("key pressed : ");
-	ft_putnbr(keycode);
-	ft_putchar('\n');
-	if ((keycode == 53) || (keycode == 65307)) // ESC
-		exit(0);
-	if ((keycode == 18) || (keycode == 38)) // touche 1
-	{
-		context->proj_type = PARALLEL;
-	}
-	if ((keycode == 19) || (keycode == 233)) // touche 2
-	{
-		context->proj_type = ISOMETRIC;
-	}
-	if ((keycode == 20) || (keycode == 34)) // touche 3
-	{
-		context->proj_type = CONICAL;
-	}
-	if ((keycode == 46) || (keycode == 44)) // touche ?
-	{
-		context->proj_type = DUMMY;
-	}
-	more_keys(keycode, context);
-	reprocess_image(context);
 	return (1);
 }
 
