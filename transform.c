@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 16:03:22 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/29 15:51:52 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/29 16:34:13 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ void		isometric_transform(t_context *c)
 			if (check_corner_point(c, &p1) && (c->map[y][x + 1] != END_LINE))
 			{
 				iso_point(c, set_3d(&p_3d, x + 1, y, c->map[y][x + 1]), &p2);
-				img_draw_line(c, p1.x, p1.y, p2.x, p2.y, p1.color);
+				img_draw_line(c, &p1, &p2);
 			}
 			if (c->map[y + 1])
 			{
 				iso_point(c, set_3d(&p_3d, x, y + 1, c->map[y + 1][x]), &p2);
-				img_draw_line(c, p1.x, p1.y, p2.x, p2.y, p1.color);
+				img_draw_line(c, &p1, &p2);
 			}
 		}
 	}

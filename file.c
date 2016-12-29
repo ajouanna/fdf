@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:06:48 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/28 17:47:47 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/29 16:53:04 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,33 +102,25 @@ int			check_map(t_context *c)
 	int j;
 	int first_pass;
 
-	c->data_width = 0;
 	c->z_max = 0;
 	c->z_min = 0;
 	first_pass = 1;
 	i = -1;
 	while (c->map[++i])
 	{
-		j = 0;
-		while (c->map[i][j] != END_LINE)
+		j = -1;
+		while (c->map[i][++j] != END_LINE)
 		{
 			c->z_max = (c->map[i][j] > c->z_max) ? c->map[i][j] : c->z_max;
 			c->z_min = (c->map[i][j] < c->z_min) ? c->map[i][j] : c->z_min;
-			j++;
 		}
 		if (first_pass)
 		{
 			first_pass = 0;
 			c->data_width = j;
 		}
-		else
-		{
-			if (c->data_width != j)
-			{
-				ft_putstr("File  error: all lines should have same # points\n");
-				return (0);
-			}
-		}
+		else if (c->data_width != j)
+			return (0);
 	}
 	return (1);
 }
@@ -158,5 +150,10 @@ int			read_file(char *filename, t_context *context)
 		}
 	}
 	close(fd);
-	return (check_map(context));
+	if (check_map(context) == 0)
+	{
+		ft_putstr("File  error: all lines should have same # points\n");
+		return (0);
+	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 16:03:22 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/28 17:43:24 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/29 16:33:38 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,23 +45,43 @@ void	img_pixel_put(t_context *context, int x, int y, int color)
 }
 
 /*
+** echqnge les contenus de 2 t_point
+*/
+
+void	swap(t_point *p1, t_point *p2)
+{
+	double	swap;
+	int		i;
+
+	swap = p1->x;
+	p1->x = p2->x;
+	p2->x = swap;
+	swap = p1->y;
+	p1->y = p2->y;
+	p2->y = swap;
+	i = p1->color;
+	p1->color = p2->color;
+	p2->color = i;
+}
+
+/*
 ** trace une droite verticale
 */
 
-void	draw_vertical(t_context *context, int x, int y1, int y2, int color)
+void	draw_vertical(t_context *context, t_point *p1, t_point *p2)
 {
 	int i;
+	int color;
 
-	if (y1 > y2)
+	color = p1->color;
+	if (p1->y > p2->y)
 	{
-		i = y1;
-		y1 = y2;
-		y2 = i;
+		swap(p1, p2);
 	}
-	i = y1;
-	while (i <= y2)
+	i = p1->y;
+	while (i <= p2->y)
 	{
-		img_pixel_put(context, x, i, color);
+		img_pixel_put(context, p1->x, i, color);
 		i++;
 	}
 }
@@ -71,31 +91,26 @@ void	draw_vertical(t_context *context, int x, int y1, int y2, int color)
 ** y = a*x + b
 */
 
-void	img_draw_line(t_context *c, int x1, int y1, int x2, int y2, int color)
+void	img_draw_line(t_context *c, t_point *p1, t_point *p2)
 {
 	double	a;
 	double	b;
 	int		i;
+	int		color;
 
-	if (x1 == x2)
+	if (p1->x == p2->x)
 	{
-		draw_vertical(c, x1, y1, y2, color);
+		draw_vertical(c, p1, p2);
 		return ;
 	}
-	if (x1 > x2)
+	color = p1->color;
+	if (p1->x > p2->x)
 	{
-		i = x1;
-		x1 = x2;
-		x2 = i;
-		i = y1;
-		y1 = y2;
-		y2 = i;
+		swap(p1, p2);
 	}
-	a = (double)(y2 - y1) / (double)(x2 - x1);
-	b = y2 - a * x2;
-	i = x1 - 1;
-	while (++i <= x2)
-	{
+	a = (p2->y - p1->y) / (p2->x - p1->x);
+	b = p2->y - a * p2->x;
+	i = p1->x - 1;
+	while (++i <= p2->x)
 		img_pixel_put(c, i, (a * i + b), color);
-	}
 }

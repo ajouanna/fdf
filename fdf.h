@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:06:48 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/29 15:49:51 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/29 16:28:48 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,13 +137,11 @@ typedef struct	s_context
 
 int				setup_mlx(t_context *context);
 int				read_file(char *filename, t_context *context);
-void			draw_square(t_context *c, int x, int y);
 void			display_commands(t_context *context);
 void			process_image(t_context *context);
 void			reprocess_image(t_context *context);
 void			img_pixel_put(t_context *context, int x, int y, int color);
-void			img_draw_line(t_context *context, int x1, int y1, int x2,
-					int y2, int color);
+void			img_draw_line(t_context *context, t_point *p1, t_point *p);
 void			clear_image(t_context *context);
 void			dummy_transform(t_context *c);
 void			parallel_transform(t_context *c);
