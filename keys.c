@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/28 17:03:47 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/29 15:03:37 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/29 17:16:26 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,10 @@ void		yet_more_keys(int keycode, t_context *context)
 /*
 ** traitement des evenements clavier
 ** NB : je n'appelle pas la transfo conique car pas implementee
+** Pour afficher le code touche ajouter
+**	ft_putstr("key pressed : ");
+**	ft_putnbr(keycode);
+**	ft_putchar('\n');
 */
 
 int			handle_key(int keycode, void *param)
@@ -115,9 +119,6 @@ int			handle_key(int keycode, void *param)
 	t_context *context;
 
 	context = param;
-	ft_putstr("key pressed : ");
-	ft_putnbr(keycode);
-	ft_putchar('\n');
 	if ((keycode == MAC_ESC) || (keycode == LIN_ESC))
 		exit(0);
 	if ((keycode == MAC_1) || (keycode == LIN_1))
