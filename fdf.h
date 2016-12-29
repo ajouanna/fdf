@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:06:48 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/28 17:07:06 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/29 15:49:51 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,12 @@ typedef	struct	s_point
 ** cette structure stocke un point en 3D
 */
 
-typedef	struct	s_3D_point
+typedef	struct	s_3d_point
 {
 	int	x;
 	int	y;
 	int	z;
-}				t_3D_point;
-
+}				t_3d_point;
 
 /*
 ** cette structure stocke l'environnement complet necessaire aux
@@ -150,7 +149,9 @@ void			dummy_transform(t_context *c);
 void			parallel_transform(t_context *c);
 void			isometric_transform(t_context *c);
 void			conical_transform(t_context *c);
-void			check_corner_point(t_context *context, t_point *point);
+int				check_corner_point(t_context *context, t_point *point);
 int				color(t_context *context, int z);
 int				handle_key(int keycode, void *param);
+void			iso_point(t_context *context, t_3d_point *p_3d, t_point *point);
+t_3d_point		*set_3d(t_3d_point *point, int x, int y, int z);
 #endif

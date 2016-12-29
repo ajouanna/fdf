@@ -4,7 +4,7 @@ INC = .
 OBJ = .
 LIST_SRC = $(SRC)/main.c $(SRC)/file.c $(SRC)/draw.c $(SRC)/init.c \
 		$(SRC)/process.c $(SRC)/transform.c $(SRC)/check.c $(SRC)/color.c \
-		$(SRC)/keys.c $(SRC)/display.c
+		$(SRC)/keys.c $(SRC)/display.c $(SRC)/point.c
 
 LIST_OBJ = $(LIST_SRC:$(SRC)/%.c=$(OBJ)/%.o)
 	#CFLAG = -Wall -Wextra -Werror

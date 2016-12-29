@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 17:14:45 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/28 17:05:39 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/29 15:00:29 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		handle_mouse(int button, int x, int y, void *param)
 ** initialisation des parametres
 */
 
-void		setup_params(t_context *context)
+void	setup_params(t_context *context)
 {
 	context->proj_type = ISOMETRIC;
 	context->width = DEFAULT_WIDTH;

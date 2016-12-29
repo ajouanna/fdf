@@ -6,13 +6,19 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/28 15:55:33 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/28 17:30:45 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/29 15:39:49 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	check_corner_point(t_context *context, t_point *point)
+/*
+** cette fonction met a jour les 4 points extremes de l'image 2d
+** dans un but de debugging
+** Elle retourne toujours 1
+*/
+
+int	check_corner_point(t_context *context, t_point *point)
 {
 	if (point->x < context->img_leftest.x)
 	{
@@ -34,4 +40,5 @@ void	check_corner_point(t_context *context, t_point *point)
 		context->img_lower.x = point->x;
 		context->img_lower.y = point->y;
 	}
+	return (1);
 }
