@@ -6,7 +6,7 @@
 /*   By: ajouanna <ajouanna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 16:03:22 by ajouanna          #+#    #+#             */
-/*   Updated: 2016/12/28 17:38:04 by ajouanna         ###   ########.fr       */
+/*   Updated: 2016/12/29 17:07:54 by ajouanna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	display_commands(t_context *c)
 	mlx_string_put(c->mlx, c->win, 10, 40, c->map_color,
 		"Augmenter/diminuer altitude , tapez Q/W");
 	mlx_string_put(c->mlx, c->win, 10, 55, c->map_color,
-		"1 : transformations parallele, 2: transformation isomorphiaue");
+		"1 : transformations parallele, 2: transformation isomorphique");
 	mlx_string_put(c->mlx, c->win, 10, 70, c->map_color,
 		"2, 4, 6 et 8 du pave num : changer les angles de vue");
 	mlx_string_put(c->mlx, c->win, 10, 85, c->map_color,
