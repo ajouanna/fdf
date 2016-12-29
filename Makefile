@@ -12,13 +12,15 @@ CFLAG = -Wall -Wextra -Werror -g
 LIBFT = libft.a
 LIBFTPATH = ./libft/
 INC_LIBFTPATH  = $(LIBFTPATH)includes
-LIBMLXPATH = ../minilibx
-INCMINI = ../minilibx
 OS:=$(shell uname)
 ifeq ($(OS),Linux)
 	LIBSMLX = -lmlx -lXext -lX11 -lm
+	LIBMLXPATH = ../minilibx
+	INCMINI = ../minilibx
 else
 	LIBSMLX = -lmlx -lm -framework OpenGL -framework AppKit
+	LIBMLXPATH = .
+	INCMINI = .
 endif
 all : $(NAME)
 

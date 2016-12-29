@@ -120,10 +120,12 @@ int		handle_key(int keycode, void *param)
 	if ((keycode == 18) || (keycode == 38)) // touche 1
 	{
 		context->proj_type = PARALLEL;
+		context->omega = M_PI / 4;
 	}
 	if ((keycode == 19) || (keycode == 233)) // touche 2
 	{
 		context->proj_type = ISOMETRIC;
+		context->omega = M_PI / 6;
 	}
 	if ((keycode == 46) || (keycode == 44)) // touche ?
 	{

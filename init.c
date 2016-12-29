@@ -22,7 +22,7 @@ int		expose_hook(void *param)
 
 	context = (t_context *)param;
 	mlx_clear_window(context->mlx, context->win);
-	mlx_put_image_to_window(context->mlx,context->win,
+	mlx_put_image_to_window(context->mlx, context->win,
 		context->img, context->img_x, context->img_y);
 	display_commands(context);
 	return (1);
@@ -35,13 +35,15 @@ int		expose_hook(void *param)
 
 int		handle_mouse(int button, int x, int y, void *param)
 {
-	t_context *context = param;
+	t_context *context;
+
+	context = param;
 	(void)button;
 	(void)x;
 	(void)y;
 	context->img_x = IMG_X;
 	context->img_y = IMG_Y;
-	context->ratio_xy = (double)context->width/(double)context->data_width;
+	context->ratio_xy = (double)context->width / (double)context->data_width;
 	context->ratio_xy /= 2;
 	context->ratio_z = 1;
 	reprocess_image(context);
@@ -49,23 +51,16 @@ int		handle_mouse(int button, int x, int y, void *param)
 }
 
 /*
-** initialise la librairie mlx et lance les traitements
-** NB: par defaut, l'affichage est de type PARALLEL
-** TBD : calculer la taille de la fenêtre en fonction du fichier de donnees
+** initialisation des parametres
 */
 
-int		setup_mlx(t_context *context)
+void		setup_params(t_context *context)
 {
-	if ((context->mlx = mlx_init()) == NULL)
-	{
-		ft_putstr("mlx_init error\n");
-		return (0);
-	}
 	context->proj_type = ISOMETRIC;
 	context->width = DEFAULT_WIDTH;
 	context->height = DEFAULT_HEIGHT;
 	context->map_color = DEFAULT_COLOR;
-	context->ratio_xy = (double)context->width/(double)context->data_width;
+	context->ratio_xy = (double)context->width / (double)context->data_width;
 	context->ratio_xy /= 2;
 	context->ratio_z = 1;
 	context->img_x = IMG_X;
@@ -81,13 +76,27 @@ int		setup_mlx(t_context *context)
 	context->img_lower.y = context->height / 2;
 	context->alpha = 2 * M_PI / 6;
 	context->omega = M_PI / 6;
+}
+
+/*
+** initialise la librairie mlx et lance les traitements
+*/
+
+int		setup_mlx(t_context *context)
+{
+	if ((context->mlx = mlx_init()) == NULL)
+	{
+		ft_putstr("mlx_init error\n");
+		return (0);
+	}
+	setup_params(context);
 	context->win = mlx_new_window(context->mlx, context->width, context->height,
 			"Antoine");
 	context->img = mlx_new_image(context->mlx, context->width, context->height);
 	context->img_data = mlx_get_data_addr(context->img, &(context->img_bpp),
 		&(context->img_size_line), &(context->img_endian));
 	process_image(context);
-	mlx_put_image_to_window(context->mlx,context->win, context->img,
+	mlx_put_image_to_window(context->mlx, context->win, context->img,
 		context->img_x, context->img_y);
 	mlx_key_hook(context->win, handle_key, context);
 	mlx_mouse_hook(context->win, handle_mouse, context);
