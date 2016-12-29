@@ -20,23 +20,23 @@
 
 void		more_keys(int keycode, t_context *context)
 {
-	if ((keycode == 257) || (keycode == 69) || (keycode == 65451)) // shft gauche ou + du pave numerique
+	if ((keycode == MAC_LEFT_SHIFT) || (keycode == MAC_PLUS) || (keycode == LIN_PLUS))
 	{
 		context->ratio_xy += 0.5;
 	}
-	if ((keycode == 258) || (keycode == 78) || (keycode == 65453)) // shft droite ou - du pave numerique
+	if ((keycode == MAC_RIGHT_SHIFT) || (keycode == MAC_MINUS) || (keycode == LIN_MINUS))
 	{
 		context->ratio_xy -= 0.5;
 		if (context->ratio_xy <= 0)
 			context->ratio_xy = 1;
 	}
-	if ((keycode == 123) || (keycode == 65361)) // fleche gauche
+	if ((keycode == MAC_LEFT_ARROW) || (keycode == LIN_LEFT_ARROW))
 	{
 		context->img_x -=10;
 		if (context->img_x <= 0)
 			context->img_x = 0;
 	}
-	if ((keycode == 126) || (keycode == 65362)) // fleche haute
+	if ((keycode == MAC_UP_ARROW) || (keycode == LIN_UP_ARROW))
 	{
 		context->img_y -=10;
 		if (context->img_y <= 0)
@@ -51,27 +51,27 @@ void		more_keys(int keycode, t_context *context)
 
 void		still_more_keys(int keycode, t_context *context)
 {
-	if ((keycode == 124) || (keycode == 65363)) //fleche droite
+	if ((keycode == MAC_RIGHT_ARROW) || (keycode == LIN_RIGHT_ARROW))
 	{
 		context->img_x +=10;
 		if (context->img_x >= context->width)
 			context->img_x = context->width;
 	}
-	if ((keycode == 125) || (keycode == 65364)) //fleche basse
+	if ((keycode == MAC_DOWN_ARROW) || (keycode == LIN_DOWN_ARROW))
 	{
 		context->img_y +=10;
 		if (context->img_y >= context->height)
 			context->img_y = context->height;
 	}
-	if ((keycode == 12) || (keycode == 113)) // Q pour agrandir la hauteur
+	if ((keycode == MAC_Q) || (keycode == LIN_Q))
 		context->ratio_z += 0.5;
-	if ((keycode == 13) || (keycode == 119)) // W pour diminuer la hauteur
+	if ((keycode == MAC_W) || (keycode == LIN_W))
 	{
 		context->ratio_z -= 0.5;
 		if (context->ratio_z <= 0)
 			context->ratio_z = 1;
 	}
-	if ((keycode == 8) || (keycode == 99)) // C pour couleur
+	if ((keycode == MAC_C) || (keycode == LIN_C))
 		context->is_monochrome = (context->is_monochrome == 0) ? 1 : 0;
 }
 
@@ -82,21 +82,21 @@ void		still_more_keys(int keycode, t_context *context)
 
 void		yet_more_keys(int keycode, t_context *context)
 {
-	if ((keycode == 91) || (keycode == 65431)) // 8 du pave pour augm omega
+	if ((keycode == MAC_8_NUMPAD) || (keycode == LIN_8_NUMPAD))
 	{
 		context->omega += M_PI/12;
 	}
-	if ((keycode == 84) || (keycode == 65433)) // 2 du pave pour dim ommega
+	if ((keycode == MAC_2_NUMPAD) || (keycode == LIN_2_NUMPAD))
 	{
 		context->omega -= M_PI/12;
 	}
-	if ((keycode == 86) || (keycode == 65430)) // 4 du pave pour augm alpha
+	if ((keycode == MAC_4_NUMPAD) || (keycode == LIN_4_NUMPAD))
 	{
 		context->alpha += M_PI/12;
 		if (context->alpha > M_PI/2)
 			context->alpha = M_PI/2;
 	}
-	if ((keycode == 88) || (keycode == 65432)) // 6 du pave pour dim alpha
+	if ((keycode == MAC_6_NUMPAD) || (keycode == LIN_6_NUMPAD))
 	{
 		context->alpha -= M_PI/12;
 		if (context->alpha <= 0)
@@ -115,19 +115,19 @@ int		handle_key(int keycode, void *param)
 	ft_putstr("key pressed : ");
 	ft_putnbr(keycode);
 	ft_putchar('\n');
-	if ((keycode == 53) || (keycode == 65307)) // ESC
+	if ((keycode == MAC_ESC) || (keycode == LIN_ESC))
 		exit(0);
-	if ((keycode == 18) || (keycode == 38)) // touche 1
+	if ((keycode == MAC_1) || (keycode == LIN_1))
 	{
 		context->proj_type = PARALLEL;
 		context->omega = M_PI / 4;
 	}
-	if ((keycode == 19) || (keycode == 233)) // touche 2
+	if ((keycode == MAC_2) || (keycode == LIN_2))
 	{
 		context->proj_type = ISOMETRIC;
 		context->omega = M_PI / 6;
 	}
-	if ((keycode == 46) || (keycode == 44)) // touche ?
+	if ((keycode == MAC_QUESTION) || (keycode == LIN_QUESTION))
 	{
 		context->proj_type = DUMMY;
 	}

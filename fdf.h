@@ -17,7 +17,7 @@
 # include "libft.h"
 # include <math.h>
 
-# define DEFAULT_COLOR 0x00FF11FF
+# define DEFAULT_COLOR 0x00FFFFFF
 # define DEFAULT_WIDTH  1600
 # define DEFAULT_HEIGHT 700
 # define DEFAULT_RATIO 5
@@ -28,6 +28,47 @@
 #  define M_PI 3.14159
 # endif
 # define END_LINE -0xFFFF
+
+/*
+** definition des touches MACOS et LINUX
+*/
+
+# define MAC_LEFT_SHIFT 257
+# define MAC_PLUS 69
+# define LIN_PLUS 65451
+# define MAC_RIGHT_SHIFT 258
+# define MAC_MINUS 78
+# define LIN_MINUS 65453
+# define MAC_LEFT_ARROW 123
+# define LIN_LEFT_ARROW 65361
+# define MAC_UP_ARROW 126
+# define LIN_UP_ARROW 65362
+# define MAC_RIGHT_ARROW 124
+# define LIN_RIGHT_ARROW 65363
+# define MAC_DOWN_ARROW 125
+# define LIN_DOWN_ARROW 65364
+# define MAC_Q 12
+# define LIN_Q 113
+# define MAC_W 13
+# define LIN_W 119
+# define MAC_C 8
+# define LIN_C 99
+# define MAC_8_NUMPAD 91
+# define LIN_8_NUMPAD 65431
+# define MAC_2_NUMPAD 84
+# define LIN_2_NUMPAD 65433
+# define MAC_4_NUMPAD 86
+# define LIN_4_NUMPAD 65430
+# define MAC_6_NUMPAD 88
+# define LIN_6_NUMPAD 65432
+# define MAC_ESC 53
+# define LIN_ESC 65307
+# define MAC_1 18
+# define LIN_1 38
+# define MAC_2 19
+# define LIN_2 233
+# define MAC_QUESTION 46
+# define LIN_QUESTION 44
 
 typedef	enum	e_projection_type
 {
